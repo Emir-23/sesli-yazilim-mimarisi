@@ -3,6 +3,8 @@ import ReactFlow, { Background, Controls, applyNodeChanges, applyEdgeChanges } f
 import 'reactflow/dist/style.css';
 import { Folder, Mic, ArrowLeft, Download, RefreshCw, Upload, FileText, UserCircle, Activity, ShoppingCart, PlusSquare } from 'lucide-react';
 
+const API_GENERATE_UML = 'http://127.0.0.1:8000/api/generate-uml';
+
 // --- Sahte Veriler (Nodes & Edges) ---
 const initialNodes = [
   { id: '1', position: { x: 50, y: 50 }, data: { label: 'AuthClass' }, style: { backgroundColor: '#1e293b', color: '#e2e8f0', border: '1px solid #10b981', borderRadius: '4px', padding: '10px', fontSize: '12px' } },
@@ -20,9 +22,41 @@ const initialEdges = [
 export default function App() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
+  const [meetingText, setMeetingText] = useState('');
+  const [umlResult, setUmlResult] = useState('');
+  const [umlLoading, setUmlLoading] = useState(false);
+  const [umlError, setUmlError] = useState('');
 
   const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), []);
   const onEdgesChange = useCallback((changes) => setEdges((eds) => applyEdgeChanges(changes, eds)), []);
+
+  const handleGenerateUml = useCallback(async () => {
+    setUmlError('');
+    setUmlLoading(true);
+    try {
+      const res = await fetch(API_GENERATE_UML, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ text: meetingText }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.message || `İstek başarısız (HTTP ${res.status})`);
+      }
+      if (typeof data.uml !== 'string') {
+        throw new Error('Sunucudan geçersiz yanıt alındı.');
+      }
+      setUmlResult(data.uml);
+    } catch (e) {
+      setUmlResult('');
+      setUmlError(e instanceof Error ? e.message : 'Bilinmeyen hata');
+    } finally {
+      setUmlLoading(false);
+    }
+  }, [meetingText]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#0f172a', color: '#e2e8f0', fontFamily: 'sans-serif' }}>
@@ -92,8 +126,25 @@ export default function App() {
               <button style={{ backgroundColor: 'transparent', color: '#94a3b8', border: '1px solid transparent', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', fontSize: '12px' }}>
                 <Download size={14} /> Dışa Aktar (PNG/JSON)
               </button>
-              <button style={{ backgroundColor: 'transparent', color: '#38bdf8', border: '1px solid #38bdf8', padding: '6px 12px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', fontSize: '12px' }}>
-                <RefreshCw size={14} /> GÜNCELLE / ANALİZ ET
+              <button
+                type="button"
+                onClick={handleGenerateUml}
+                disabled={umlLoading}
+                style={{
+                  backgroundColor: 'transparent',
+                  color: '#38bdf8',
+                  border: '1px solid #38bdf8',
+                  padding: '6px 12px',
+                  borderRadius: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: umlLoading ? 'wait' : 'pointer',
+                  fontSize: '12px',
+                  opacity: umlLoading ? 0.7 : 1,
+                }}
+              >
+                <RefreshCw size={14} /> {umlLoading ? 'Gönderiliyor…' : 'GÜNCELLE / ANALİZ ET'}
               </button>
             </div>
           </div>
@@ -104,6 +155,26 @@ export default function App() {
               {/* 1. KOLON: ZAMAN ÇİZELGESİ */}
               <div style={{ width: '220px', backgroundColor: '#1e293b', borderRadius: '6px', border: '1px solid #334155', padding: '12px', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ fontSize: '11px', textAlign: 'center', color: '#94a3b8', letterSpacing: '1px', marginBottom: '15px', fontWeight: 'bold' }}>ZAMAN ÇİZELGESİ</div>
+
+                  <label style={{ fontSize: '11px', color: '#94a3b8', display: 'block', marginBottom: '6px' }}>Toplantı metni</label>
+                  <textarea
+                    value={meetingText}
+                    onChange={(e) => setMeetingText(e.target.value)}
+                    placeholder="Örn: Kütüphane sisteminde Kitap ve Yazar sınıfları…"
+                    style={{
+                      width: '100%',
+                      minHeight: '88px',
+                      marginBottom: '12px',
+                      padding: '8px',
+                      fontSize: '11px',
+                      backgroundColor: '#0f172a',
+                      color: '#e2e8f0',
+                      border: '1px solid #334155',
+                      borderRadius: '4px',
+                      resize: 'vertical',
+                      boxSizing: 'border-box',
+                    }}
+                  />
                   
                   <button style={{ backgroundColor: '#10b981', color: 'white', border: 'none', padding: '8px', borderRadius: '4px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', cursor: 'pointer', marginBottom: '8px', fontSize: '12px' }}>
                       <Upload size={14}/> Dosya Yükle (.txt/.mp3)
@@ -135,7 +206,33 @@ export default function App() {
               </div>
 
               {/* 3. KOLON: SPRINT GÖREVLERİ */}
-              <div style={{ width: '240px', backgroundColor: '#1e293b', borderRadius: '6px', border: '1px solid #334155', padding: '12px' }}>
+              <div style={{ width: '240px', backgroundColor: '#1e293b', borderRadius: '6px', border: '1px solid #334155', padding: '12px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                  {umlError ? (
+                    <div style={{ fontSize: '11px', color: '#f87171', marginBottom: '10px', lineHeight: 1.4 }}>{umlError}</div>
+                  ) : null}
+                  {umlResult ? (
+                    <div style={{ marginBottom: '12px', flexShrink: 0 }}>
+                      <div style={{ fontSize: '11px', color: '#10b981', fontWeight: 'bold', marginBottom: '6px' }}>PlantUML (API)</div>
+                      <pre
+                        style={{
+                          margin: 0,
+                          maxHeight: '160px',
+                          overflow: 'auto',
+                          fontSize: '10px',
+                          lineHeight: 1.35,
+                          color: '#cbd5e1',
+                          backgroundColor: '#0f172a',
+                          padding: '8px',
+                          borderRadius: '4px',
+                          border: '1px solid #334155',
+                          whiteSpace: 'pre-wrap',
+                          wordBreak: 'break-word',
+                        }}
+                      >
+                        {umlResult}
+                      </pre>
+                    </div>
+                  ) : null}
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px', borderBottom: '1px solid #334155', paddingBottom: '8px' }}>
                       <span style={{ fontSize: '11px', color: '#64748b', cursor: 'pointer' }}>TAB: [Canlı Chat]</span>
                       <span style={{ fontSize: '11px', color: '#10b981', fontWeight: 'bold', cursor: 'pointer' }}>TAB: [■ Sprint Görevleri]</span>

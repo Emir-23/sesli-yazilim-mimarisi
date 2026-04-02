@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+        'model' => env('GEMINI_MODEL', 'gemini-1.5-flash'),
+        'timeout' => env('GEMINI_TIMEOUT', 30),
+        'temperature' => env('GEMINI_TEMPERATURE', 0.3),
+    ],
+
 ];
