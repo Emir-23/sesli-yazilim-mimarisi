@@ -42,4 +42,10 @@ return [
         'temperature' => env('GEMINI_TEMPERATURE', 0.3),
     ],
 
+    'deepgram' => [
+        'key' => env('DEEPGRAM_API_KEY'),
+        'model' => env('DEEPGRAM_MODEL', 'nova-3'),
+        'language' => env('DEEPGRAM_LANGUAGE', 'tr'),
+    ],
+
 ];

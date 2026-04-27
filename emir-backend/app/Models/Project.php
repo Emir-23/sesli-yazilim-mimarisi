@@ -28,4 +28,14 @@ class Project extends Model
     {
         return $this->hasOne(Diagram::class);
     }
+
+    public function chatLogs(): HasMany
+    {
+        return $this->hasMany(ChatLog::class);
+    }
+
+    public function transcripts(): HasMany
+    {
+        return $this->hasMany(Transcript::class);
+    }
 }
