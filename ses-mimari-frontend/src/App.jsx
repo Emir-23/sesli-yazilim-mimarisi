@@ -1,16 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import UmlScreen from './pages/UmlScreen';
+import Dashboard from './pages/Dashboard';
 import MeetingRoom from './pages/MeetingRoom';
+import Workspace from './pages/Workspace';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Ana sayfa olarak UmlScreen'i açar */}
-        <Route path="/" element={<UmlScreen />} />
-        <Route path="/uml" element={<UmlScreen />} />
-        <Route path="/meeting" element={<MeetingRoom />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/meeting/:id" element={<MeetingRoom />} />
+        <Route path="/workspace/:id" element={<Workspace />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\GenerateUmlController;
+use App\Http\Controllers\GenerateTasksController;
 use App\Http\Controllers\ProjectChatController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectTranscriptController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/generate-uml', GenerateUmlController::class);
+Route::post('/generate-tasks', GenerateTasksController::class);
 
 Route::apiResource('projects', ProjectController::class)->only(['index', 'show', 'store']);
 Route::get('/projects/{project}/chat-logs', [ProjectChatController::class, 'index']);

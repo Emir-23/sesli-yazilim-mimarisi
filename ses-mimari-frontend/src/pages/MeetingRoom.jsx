@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Mic, Send, StopCircle, ArrowLeft } from 'lucide-react';
 
 export default function MeetingRoom() {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [isRecording, setIsRecording] = useState(false);
-  const [projectId] = useState(1);
+  const [meetingNotes, setMeetingNotes] = useState('');
+  const projectId = useMemo(() => id || '1', [id]);
 
   const sendToBackend = async (text, type = 'text') => {
+    if (!text.trim()) return;
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/projects/${projectId}/chat-logs`, {
         method: 'POST',
@@ -33,6 +36,14 @@ export default function MeetingRoom() {
     }
   };
 
+  const saveMeetingDraft = () => {
+    const payload = {
+      notes: meetingNotes.trim(),
+      messages: messages.map((m) => m.text).join('\n'),
+    };
+    sessionStorage.setItem(`meeting:${projectId}`, JSON.stringify(payload));
+  };
+
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
     const newMessage = { id: Date.now(), text: inputValue, sender: 'You', type: 'text' };
@@ -53,19 +64,47 @@ export default function MeetingRoom() {
     }
   };
 
+  const handleGoWorkspace = () => {
+    saveMeetingDraft();
+    navigate(`/workspace/${projectId}`);
+  };
+
   return (
     <div style={{ height: '100vh', backgroundColor: '#0f172a', color: 'white', display: 'flex', flexDirection: 'column' }}>
       <div style={{ padding: '15px 20px', backgroundColor: '#1e293b', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-          <button onClick={() => navigate('/uml')} style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+          <button onClick={() => navigate('/')} style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
             <ArrowLeft size={18} style={{ marginRight: '8px' }} /> Projeye Don
           </button>
-          <h2 style={{ margin: 0, fontSize: '18px' }}>🎙️ Canli Toplanti Odasi</h2>
+          <h2 style={{ margin: 0, fontSize: '18px' }}>📥 Veri Toplama Odası (#{projectId})</h2>
         </div>
+        <button onClick={handleGoWorkspace} style={{ backgroundColor: '#10b981', border: 'none', color: 'white', padding: '8px 14px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>
+          UML Çiz ve Analiz Et
+        </button>
       </div>
 
-      <div style={{ flex: 1, display: 'flex', padding: '20px', gap: '20px', justifyContent: 'center' }}>
-        <div style={{ width: '500px', backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #334155', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <div style={{ flex: 1, display: 'flex', padding: '20px', gap: '20px' }}>
+        <div style={{ width: '40%', minWidth: '320px', backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #334155', display: 'flex', flexDirection: 'column', padding: '15px', gap: '12px' }}>
+          <h3 style={{ margin: 0, color: '#e2e8f0' }}>Veri Toplama</h3>
+          <button style={{ backgroundColor: '#10b981', border: 'none', color: 'white', padding: '10px', borderRadius: '6px', cursor: 'pointer' }}>
+            Dosya Yükle (.txt/.mp3)
+          </button>
+          <button
+            onClick={handleToggleRecording}
+            style={{ backgroundColor: isRecording ? '#ef4444' : '#334155', color: 'white', border: 'none', padding: '10px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+          >
+            {isRecording ? <StopCircle size={18} /> : <Mic size={18} />} Canlı Sesli Oda (Mikrofon)
+          </button>
+          <textarea
+            value={meetingNotes}
+            onChange={(e) => setMeetingNotes(e.target.value)}
+            placeholder="Toplantıdan topladığın metni buraya ekle..."
+            style={{ flex: 1, minHeight: '220px', backgroundColor: '#0f172a', border: '1px solid #334155', color: '#e2e8f0', borderRadius: '8px', padding: '10px', resize: 'vertical' }}
+          />
+        </div>
+
+        <div style={{ flex: 1, backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #334155', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          <div style={{ padding: '12px 15px', borderBottom: '1px solid #334155', fontWeight: 'bold', color: '#e2e8f0' }}>Canlı Chat</div>
           <div style={{ flex: 1, padding: '15px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {messages.length === 0 && (
               <div style={{ color: '#64748b', textAlign: 'center', marginTop: '20px' }}>Henuz mesaj yok. Toplantiya baslayin!</div>

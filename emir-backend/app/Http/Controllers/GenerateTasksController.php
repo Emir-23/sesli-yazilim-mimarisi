@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 
-class GenerateUmlController extends Controller
+class GenerateTasksController extends Controller
 {
     public function __construct(private AIService $aiService)
     {
@@ -20,26 +20,19 @@ class GenerateUmlController extends Controller
 
     public function __invoke(Request $request): JsonResponse
     {
-        // Payload esnekliği:
-        // - Eski: { project_id, diagram_type } -> DB'den timeline birleştir -> AI
-        // - Yeni: { text, type } (veya diagram_type) -> DB'ye gitmeden direkt AI
+        // UML endpoint'i ile aynı esneklikte:
+        // - { text } gelirse DB'ye gitmeden direkt görev üret
+        // - { project_id } gelirse chat+transcript timeline birleştirip görev üret
         $validator = Validator::make($request->all(), [
             'project_id' => ['sometimes', 'integer', 'exists:projects,id'],
-            'diagram_type' => ['sometimes', 'string', 'in:class,state'],
-            'type' => ['sometimes', 'string', 'in:class,state'],
             'text' => ['sometimes', 'string', 'max:20000'],
         ]);
 
         $validator->after(function ($v) use ($request) {
             $hasText = $request->filled('text');
             $hasProject = $request->filled('project_id');
-            $hasType = $request->filled('diagram_type') || $request->filled('type');
-
             if (! $hasText && ! $hasProject) {
                 $v->errors()->add('project_id', 'project_id veya text zorunludur.');
-            }
-            if (! $hasType) {
-                $v->errors()->add('diagram_type', 'diagram_type veya type zorunludur.');
             }
         });
 
@@ -47,13 +40,9 @@ class GenerateUmlController extends Controller
         $validated = $validator->validate();
 
         try {
-            $diagramType = (string) ($validated['diagram_type'] ?? $validated['type'] ?? 'class');
-
             if (! empty($validated['text'])) {
-                // Yeni akış: text geldiyse veritabanına hiç gitme.
                 $mergedText = (string) $validated['text'];
             } else {
-                // Eski akış: project_id üzerinden timeline birleştir.
                 $projectId = (int) $validated['project_id'];
                 $project = Project::query()->findOrFail($projectId);
 
@@ -90,7 +79,7 @@ class GenerateUmlController extends Controller
             }
 
             try {
-                $diagramData = $this->aiService->generateUmlFromText($mergedText, $diagramType);
+                $tasks = $this->aiService->generateTasksFromText($mergedText);
             } catch (\Exception $e) {
                 $haystack = strtolower($e->getMessage());
                 if (str_contains($haystack, '503') || str_contains($haystack, 'high demand')) {
@@ -107,13 +96,15 @@ class GenerateUmlController extends Controller
                 }
 
                 return response()->json([
-                    'error' => 'Diyagram üretilirken bir hata oluştu: '.$e->getMessage(),
-                    'message' => 'Diyagram üretilirken bir hata oluştu: '.$e->getMessage(),
+                    'error' => 'Görevler üretilirken bir hata oluştu: '.$e->getMessage(),
+                    'message' => 'Görevler üretilirken bir hata oluştu: '.$e->getMessage(),
                 ], 500);
             }
 
-            // Geriye dönük uyumluluk: hem diagram_data içinde hem de doğrudan nodes/edges olarak dön.
-            return response()->json(array_merge(['diagram_data' => $diagramData], is_array($diagramData) ? $diagramData : []));
+            return response()->json([
+                'data' => $tasks,
+                'tasks' => $tasks,
+            ]);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
@@ -139,3 +130,4 @@ class GenerateUmlController extends Controller
             ->implode("\n");
     }
 }
+
