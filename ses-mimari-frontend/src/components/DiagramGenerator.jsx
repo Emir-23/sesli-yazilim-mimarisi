@@ -2,6 +2,9 @@ import React, { useState, useCallback, useRef } from 'react';
 import ReactFlow, { Background, Controls, applyNodeChanges, applyEdgeChanges } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Download, RefreshCw, Upload, Mic, FileText, Loader2, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+const API_GENERATE_UML = 'http://127.0.0.1:8000/api/generate-uml';
 
 const initialNodes = [
   { id: '1', position: { x: 50, y: 50 }, data: { label: 'AuthClass' }, style: { backgroundColor: '#1e293b', color: '#e2e8f0', border: '1px solid #10b981', borderRadius: '4px', padding: '10px', fontSize: '12px' } },
@@ -19,7 +22,16 @@ const initialEdges = [
 export default function DiagramGenerator() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
-  
+  const navigate = useNavigate();
+
+  const [meetingText, setMeetingText] = useState('');
+  const [umlResult, setUmlResult] = useState('');
+  const [umlError, setUmlError] = useState('');
+  const [activeTab, setActiveTab] = useState('sprint');
+  const [isMeetingActive, setIsMeetingActive] = useState(false);
+  const [chatInput, setChatInput] = useState('');
+  const [chatMessages, setChatMessages] = useState([]);
+
   const [diagramType, setDiagramType] = useState('class');
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState(null);
@@ -88,31 +100,84 @@ export default function DiagramGenerator() {
     }
   };
 
+  const saveChatToBackend = useCallback(async (text) => {
+    if (!text.trim()) return;
+
+    try {
+      await fetch('http://127.0.0.1:8000/api/projects/1/chat-logs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          message: text,
+          user_name: 'Cemil Ay',
+          sent_at: new Date().toISOString(),
+        }),
+      });
+    } catch (error) {
+      console.error('Backend baglanti hatasi:', error);
+    }
+  }, []);
+
   const handleGenerate = async () => {
     setIsLoading(true);
     setToast(null);
+    setUmlError('');
 
     try {
-      const response = await fetch('/api/generate-uml', {
+      await saveChatToBackend(meetingText);
+      const response = await fetch(API_GENERATE_UML, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: diagramType }),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ text: meetingText, type: diagramType }),
       });
 
-      if (!response.ok) throw new Error('Sunucular yoğun, biraz bekleyip tekrar dene.');
-
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || `Istek basarisiz (HTTP ${response.status})`);
+      }
+
       if (data.nodes && data.edges) {
         setNodes(data.nodes);
         setEdges(data.edges);
+      }
+      if (typeof data.uml === 'string') {
+        setUmlResult(data.uml);
+      } else {
+        setUmlResult('');
+      }
+      if (data.nodes || data.uml) {
         showToast('Diyagram başarıyla oluşturuldu!', 'success');
       }
     } catch (error) {
-      showToast(error.message, 'error');
+      const message = error instanceof Error ? error.message : 'Bilinmeyen hata';
+      setUmlResult('');
+      setUmlError(message);
+      showToast(message, 'error');
     } finally {
       setIsLoading(false);
     }
   };
+
+  const handleStartMeeting = useCallback(() => {
+    setIsMeetingActive(true);
+    setActiveTab('chat');
+    navigate('/meeting');
+  }, [navigate]);
+
+  const handleSendChatMessage = useCallback(async () => {
+    const text = chatInput.trim();
+    if (!text) return;
+
+    setChatMessages((prev) => [...prev, { id: Date.now(), text }]);
+    setChatInput('');
+    await saveChatToBackend(text);
+  }, [chatInput, saveChatToBackend]);
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative' }}>
@@ -186,7 +251,7 @@ export default function DiagramGenerator() {
         </div>
         
         <div style={{ display: 'flex', gap: '10px' }}>
-          <button 
+          <button
             onClick={handleGenerate} 
             disabled={isLoading}
             style={{ backgroundColor: isLoading ? '#475569' : '#10b981', color: 'white', border: 'none', padding: '6px 15px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '6px', cursor: isLoading ? 'not-allowed' : 'pointer', fontSize: '12px', fontWeight: 'bold' }}
@@ -221,9 +286,32 @@ export default function DiagramGenerator() {
           >
             <Upload size={14}/> Dosya Yükle (.txt/.mp3)
           </button>
+
+          <label style={{ fontSize: '11px', color: '#94a3b8', display: 'block', marginBottom: '6px' }}>Toplantı metni</label>
+          <textarea
+            value={meetingText}
+            onChange={(e) => setMeetingText(e.target.value)}
+            placeholder="Orn: Kutuphane sisteminde Kitap ve Yazar siniflari..."
+            style={{
+              width: '100%',
+              minHeight: '88px',
+              marginBottom: '12px',
+              padding: '8px',
+              fontSize: '11px',
+              backgroundColor: '#0f172a',
+              color: '#e2e8f0',
+              border: '1px solid #334155',
+              borderRadius: '4px',
+              resize: 'vertical',
+              boxSizing: 'border-box',
+            }}
+          />
           
-          <button style={{ backgroundColor: '#1e293b', color: '#10b981', border: '1px solid #10b981', padding: '8px', borderRadius: '4px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', cursor: 'pointer', fontSize: '12px' }}>
-            <Mic size={14}/> Canlı Oda Başlat
+          <button
+            onClick={handleStartMeeting}
+            style={{ backgroundColor: '#1e293b', color: '#10b981', border: '1px solid #10b981', padding: '8px', borderRadius: '4px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', cursor: 'pointer', fontSize: '12px' }}
+          >
+            <Mic size={14}/> {isMeetingActive ? 'Canli Oda Aktif' : 'Canli Oda Baslat'}
           </button>
           
           {/* DİNAMİK VE TIKLANABİLİR LİSTE ALANI */}
@@ -268,32 +356,146 @@ export default function DiagramGenerator() {
         </div>
 
         {/* 3. KOLON: SPRINT GÖREVLERİ */}
-        <div style={{ width: '240px', backgroundColor: '#1e293b', borderRadius: '6px', border: '1px solid #334155', padding: '12px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px', borderBottom: '1px solid #334155', paddingBottom: '8px' }}>
-            <span style={{ fontSize: '11px', color: '#64748b', cursor: 'pointer' }}>TAB: [Canlı Chat]</span>
-            <span style={{ fontSize: '11px', color: '#10b981', fontWeight: 'bold', cursor: 'pointer' }}>TAB: [■ Sprint Görevleri]</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '12px' }}>
-            <input type="checkbox" style={{ marginTop: '3px', accentColor: '#10b981' }} />
-            <div>
-              <div style={{ fontSize: '12px', color: '#e2e8f0' }}>Laravel Migration'ları</div>
-              <div style={{ fontSize: '10px', color: '#64748b' }}>Migration hangisine edilecek</div>
+        <div style={{ width: '240px', backgroundColor: '#1e293b', borderRadius: '6px', border: '1px solid #334155', padding: '12px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          {umlError ? (
+            <div style={{ fontSize: '11px', color: '#f87171', marginBottom: '10px', lineHeight: 1.4 }}>{umlError}</div>
+          ) : null}
+          {umlResult ? (
+            <div style={{ marginBottom: '12px', flexShrink: 0 }}>
+              <div style={{ fontSize: '11px', color: '#10b981', fontWeight: 'bold', marginBottom: '6px' }}>PlantUML (API)</div>
+              <pre
+                style={{
+                  margin: 0,
+                  maxHeight: '160px',
+                  overflow: 'auto',
+                  fontSize: '10px',
+                  lineHeight: 1.35,
+                  color: '#cbd5e1',
+                  backgroundColor: '#0f172a',
+                  padding: '8px',
+                  borderRadius: '4px',
+                  border: '1px solid #334155',
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word',
+                }}
+              >
+                {umlResult}
+              </pre>
             </div>
+          ) : null}
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px', borderBottom: '1px solid #334155', paddingBottom: '8px', gap: '8px' }}>
+            <button
+              type="button"
+              onClick={() => setActiveTab('chat')}
+              style={{
+                fontSize: '11px',
+                color: activeTab === 'chat' ? '#10b981' : '#64748b',
+                fontWeight: activeTab === 'chat' ? 'bold' : 'normal',
+                cursor: 'pointer',
+                background: 'transparent',
+                border: 'none',
+                padding: 0,
+              }}
+            >
+              TAB: [Canli Chat]
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('sprint')}
+              style={{
+                fontSize: '11px',
+                color: activeTab === 'sprint' ? '#10b981' : '#64748b',
+                fontWeight: activeTab === 'sprint' ? 'bold' : 'normal',
+                cursor: 'pointer',
+                background: 'transparent',
+                border: 'none',
+                padding: 0,
+              }}
+            >
+              TAB: [■ Sprint Gorevleri]
+            </button>
           </div>
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '12px' }}>
-            <input type="checkbox" style={{ marginTop: '3px', accentColor: '#10b981' }} />
-            <div>
-              <div style={{ fontSize: '12px', color: '#e2e8f0' }}>Deepgram API</div>
-              <div style={{ fontSize: '10px', color: '#64748b' }}>API entegre edilecek</div>
+
+          {activeTab === 'chat' ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', height: '100%' }}>
+              <div style={{ fontSize: '11px', color: '#94a3b8' }}>
+                {isMeetingActive ? 'Canli oda acik. Mesaj gonderebilirsin.' : 'Canli chat icin once "Canli Oda Baslat" butonuna tikla.'}
+              </div>
+              <div style={{ flex: 1, overflowY: 'auto', border: '1px solid #334155', borderRadius: '4px', padding: '8px', backgroundColor: '#0f172a' }}>
+                {chatMessages.length === 0 ? (
+                  <div style={{ fontSize: '11px', color: '#64748b' }}>Henuz mesaj yok.</div>
+                ) : (
+                  chatMessages.map((msg) => (
+                    <div key={msg.id} style={{ fontSize: '12px', color: '#e2e8f0', marginBottom: '6px', lineHeight: 1.4 }}>
+                      {msg.text}
+                    </div>
+                  ))
+                )}
+              </div>
+              <div style={{ display: 'flex', gap: '6px' }}>
+                <input
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSendChatMessage()}
+                  placeholder="Mesaj yaz..."
+                  disabled={!isMeetingActive}
+                  style={{
+                    flex: 1,
+                    fontSize: '12px',
+                    backgroundColor: '#0f172a',
+                    color: '#e2e8f0',
+                    border: '1px solid #334155',
+                    borderRadius: '4px',
+                    padding: '6px 8px',
+                    outline: 'none',
+                    opacity: isMeetingActive ? 1 : 0.6,
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={handleSendChatMessage}
+                  disabled={!isMeetingActive || !chatInput.trim()}
+                  style={{
+                    backgroundColor: '#10b981',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    padding: '6px 10px',
+                    cursor: !isMeetingActive || !chatInput.trim() ? 'not-allowed' : 'pointer',
+                    opacity: !isMeetingActive || !chatInput.trim() ? 0.5 : 1,
+                  }}
+                >
+                  Gonder
+                </button>
+              </div>
             </div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-            <input type="checkbox" style={{ marginTop: '3px', accentColor: '#10b981' }} />
-            <div>
-              <div style={{ fontSize: '12px', color: '#e2e8f0' }}>Socket.io Entegrasyonu</div>
-              <div style={{ fontSize: '10px', color: '#64748b' }}>Post entegre edilecek</div>
-            </div>
-          </div>
+          ) : (
+            <>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '12px' }}>
+                <input type="checkbox" style={{ marginTop: '3px', accentColor: '#10b981' }} />
+                <div>
+                  <div style={{ fontSize: '12px', color: '#e2e8f0' }}>Laravel Migration'lari</div>
+                  <div style={{ fontSize: '10px', color: '#64748b' }}>Migration hangisine edilecek</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '12px' }}>
+                <input type="checkbox" style={{ marginTop: '3px', accentColor: '#10b981' }} />
+                <div>
+                  <div style={{ fontSize: '12px', color: '#e2e8f0' }}>Deepgram API</div>
+                  <div style={{ fontSize: '10px', color: '#64748b' }}>API entegre edilecek</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                <input type="checkbox" style={{ marginTop: '3px', accentColor: '#10b981' }} />
+                <div>
+                  <div style={{ fontSize: '12px', color: '#e2e8f0' }}>Socket.io Entegrasyonu</div>
+                  <div style={{ fontSize: '10px', color: '#64748b' }}>Post entegre edilecek</div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
       </div>
