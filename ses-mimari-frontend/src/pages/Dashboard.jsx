@@ -1,44 +1,28 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus } from 'lucide-react';
+import { Plus, Folder } from 'lucide-react';
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const pastProjects = [
-    { id: '1001', name: 'Öğrenci Bilgi Sistemi' },
-    { id: '1002', name: 'E-Ticaret Altyapısı' },
-    { id: '1003', name: 'Hastane Otomasyonu' },
-  ];
-
-  const handleStartProject = () => {
-    const projectId = String(Date.now());
-    navigate(`/meeting/${projectId}`);
-  };
 
   return (
-    <div style={{ height: '100vh', backgroundColor: '#0f172a', color: 'white', display: 'flex' }}>
-      <aside style={{ width: '280px', borderRight: '1px solid #334155', padding: '20px', backgroundColor: '#111827' }}>
-        <h3 style={{ marginTop: 0, marginBottom: '14px', color: '#e2e8f0' }}>Geçmiş Projeler</h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {pastProjects.map((project) => (
-            <button
-              key={project.id}
-              onClick={() => navigate(`/meeting/${project.id}`)}
-              style={{ textAlign: 'left', backgroundColor: '#1e293b', color: '#cbd5e1', border: '1px solid #334155', borderRadius: '8px', padding: '10px', cursor: 'pointer' }}
-            >
-              {project.name}
-            </button>
-          ))}
-        </div>
-      </aside>
+    <div style={{ height: '100vh', backgroundColor: '#0f172a', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <h1 style={{ fontSize: '32px', marginBottom: '10px' }}>Sisteme Hoş Geldiniz.</h1>
+      <p style={{ color: '#94a3b8', marginBottom: '40px' }}>Ne yapmak istersiniz?</p>
 
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <button
-          onClick={handleStartProject}
-          style={{ width: '280px', height: '160px', backgroundColor: '#1e293b', border: '1px solid #10b981', borderRadius: '12px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#10b981' }}
+      <div style={{ display: 'flex', gap: '20px' }}>
+        {/* UML Sayfasına Yönlendiren Buton */}
+        <button 
+          onClick={() => navigate('/uml')}
+          style={{ width: '250px', height: '150px', backgroundColor: '#1e293b', border: '1px solid #10b981', borderRadius: '12px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#10b981', transition: '0.3s' }}
         >
-          <Plus size={44} style={{ marginBottom: '10px' }} />
+          <Plus size={48} style={{ marginBottom: '15px' }} />
           <span style={{ fontSize: '16px', fontWeight: 'bold' }}>YENİ PROJE BAŞLAT</span>
+        </button>
+
+        <button style={{ width: '250px', height: '150px', backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '12px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#94a3b8' }}>
+          <Folder size={48} style={{ marginBottom: '15px', color: '#f59e0b' }} />
+          <span style={{ fontSize: '16px', fontWeight: 'bold' }}>ESKİ PROJELERİ GÖRÜNTÜLÜ</span>
         </button>
       </div>
     </div>

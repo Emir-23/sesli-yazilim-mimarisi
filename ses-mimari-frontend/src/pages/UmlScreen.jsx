@@ -1,68 +1,198 @@
-import React from 'react';
-import { Activity, UserCircle, ArrowLeft, ShoppingCart, PlusSquare } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import DiagramGenerator from '../components/DiagramGenerator';
+import React, { useState, useCallback } from 'react';
+import ReactFlow, { MiniMap, Controls, Background, applyNodeChanges, applyEdgeChanges, MarkerType } from 'reactflow';
+import 'reactflow/dist/style.css';
+import { Folder, Mic, ArrowLeft, Download, RefreshCw, Upload } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // Sayfa değiştirmek için eklendi
+import {
+  collectSessionMeetingContexts,
+  fetchProjectMeetingSummary,
+  meetingSummaryProjectStub,
+  API_GENERATE_UML,
+  normalizeAiReactFlowPayload,
+} from '../workspace/constants';
+
+const initialNodes = [
+  { id: '1', position: { x: 100, y: 50 }, data: { label: 'AuthClass' }, style: { backgroundColor: '#f8fafc', color: '#0a1628', border: '1px solid #10b981', borderRadius: '5px', padding: '10px' } },
+  { id: '2', position: { x: 300, y: 50 }, data: { label: 'UserClass' }, style: { backgroundColor: '#f8fafc', color: '#0a1628', border: '1px solid #10b981', borderRadius: '5px', padding: '10px' } },
+];
+const initialEdges = [
+  { id: 'e1-2', source: '1', target: '2', label: '1:1', style: { stroke: '#64748b' }, markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 } },
+];
 
 export default function UmlScreen() {
-  const navigate = useNavigate();
+  const [nodes, setNodes] = useState(initialNodes);
+  const [edges, setEdges] = useState(initialEdges);
+  const [umlResult, setUmlResult] = useState('');
+  const [umlLoading, setUmlLoading] = useState(false);
+  const [umlError, setUmlError] = useState('');
+  const [diagramType, setDiagramType] = useState('class');
+  const navigate = useNavigate(); // Geri dön butonu için
 
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#0f172a', color: '#e2e8f0', fontFamily: 'sans-serif' }}>
+  const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), []);
+  const onEdgesChange = useCallback((changes) => setEdges((eds) => applyEdgeChanges(changes, eds)), []);
+
+  const handleGenerateUml = useCallback(async () => {
+    setUmlError('');
+    const chronological = (await fetchProjectMeetingSummary(meetingSummaryProjectStub('1'))).trim();
+    const legacy = collectSessionMeetingContexts().trim();
+    const text = chronological
+      ? legacy && legacy.trim() !== chronological
+        ? `[Toplantı özeti — veritabanı (kronolojik)]\n${chronological}\n\n[Ek — oturum]\n${legacy}`
+        : `[Toplantı özeti — veritabanı (kronolojik)]\n${chronological}`
+      : legacy;
+    if (!text.trim()) {
+      setUmlResult('');
+      setUmlError('Analiz için önce veri toplama / toplantı aşamasından içerik oluşturun (oda verisi bulunamadı).');
+      return;
+    }
+    setUmlLoading(true);
+    try {
+      const res = await fetch(API_GENERATE_UML, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          text,
+          type: diagramType === 'use_case' ? 'use_case' : 'class',
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.message || `İstek başarısız (HTTP ${res.status})`);
+      }
+      const diagram = normalizeAiReactFlowPayload(data);
+      if (!diagram) {
+        throw new Error('Sunucudan geçerli nodes/edges alınamadı.');
+      }
+      setNodes(diagram.nodes);
+      setEdges(diagram.edges);
+      setUmlResult(JSON.stringify({ nodes: diagram.nodes, edges: diagram.edges }, null, 2));
+    } catch (e) {
+      setUmlResult('');
+      setUmlError(e instanceof Error ? e.message : 'Bilinmeyen hata');
+    } finally {
+      setUmlLoading(false);
+    }
+  }, [diagramType]);
+
+  return (    <div style={{ display: 'flex', height: '100vh', backgroundColor: '#0f172a', color: '#e2e8f0', fontFamily: 'sans-serif' }}>
       
-      {/* EN ÜST BAR (Logo ve Profil) */}
-      <div style={{ height: '60px', backgroundColor: '#1e293b', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Activity size={24} color="#10b981" />
-          <div>
-            <div style={{ fontWeight: 'bold', fontSize: '16px' }}>SesMimari AI</div>
-            <div style={{ fontSize: '11px', color: '#94a3b8' }}>UML Asistanı</div>
-          </div>
+      {/* SOL MENÜ */}
+      <div style={{ width: '260px', backgroundColor: '#1e293b', padding: '20px', borderRight: '1px solid #334155' }}>
+        {/* GERİ DÖN BUTONU */}
+        <div onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', marginBottom: '40px', cursor: 'pointer', color: '#94a3b8' }}>
+           <ArrowLeft size={18} style={{ marginRight: '10px' }}/>
+           <span style={{ fontSize: '14px' }}>Ana Sayfaya Dön</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#94a3b8' }}>
-          <UserCircle size={28} color="#e2e8f0" />
-        
-          <span style={{ fontSize: '14px', color: '#e2e8f0' }}>Hüseyin Altıparmak <span style={{ color: '#64748b' }}></span></span>
+        <h3 style={{ color: '#e2e8f0', fontSize: '16px', marginBottom: '20px', fontWeight: 'normal' }}>Geçmiş Projeler</h3>
+        <div style={{ backgroundColor: '#0f172a', padding: '15px', borderRadius: '8px', border: '1px solid #334155' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Folder size={18} style={{ marginRight: '10px', color: '#94a3b8' }} />
+            <strong style={{ fontSize: '14px' }}>Öğrenci Sistemi (OBS)</strong>
+          </div>
         </div>
       </div>
 
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        {/* SOL MENÜ (Sidebar) */}
-        <div style={{ width: '260px', backgroundColor: '#1e293b', padding: '15px', borderRight: '1px solid #334155', display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
-          <div onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', marginBottom: '30px', cursor: 'pointer', color: '#94a3b8', border: '1px solid #334155', padding: '5px 10px', borderRadius: '4px', width: 'fit-content' }}>
-            <ArrowLeft size={16} style={{ marginRight: '5px' }}/>
-            <span style={{ fontSize: '12px' }}>Geri Dön</span>
-          </div>
-          
-          <h3 style={{ fontSize: '15px', marginBottom: '15px', fontWeight: '500', color: '#f8fafc' }}>Geçmiş Analiz Projeleriniz</h3>
-          
-          <div style={{ backgroundColor: '#0f172a', padding: '12px', borderRadius: '6px', marginBottom: '10px', border: '1px solid #334155', cursor: 'pointer' }}>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
-              <Activity size={16} style={{ marginRight: '8px', color: '#94a3b8' }} />
-              <strong style={{ fontSize: '13px', color: '#f8fafc' }}>Öğrenci Sistemi (OBS)</strong>
-            </div>
-            <div style={{ fontSize: '10px', color: '#64748b', marginLeft: '24px' }}>Diyagram: Sınıf / Oluşturulma: 12 Mart</div>
-          </div>
-
-          <div style={{ backgroundColor: '#0f172a', padding: '12px', borderRadius: '6px', marginBottom: '10px', border: '1px solid #334155', cursor: 'pointer' }}>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
-              <ShoppingCart size={16} style={{ marginRight: '8px', color: '#f59e0b' }} />
-              <strong style={{ fontSize: '13px', color: '#f8fafc' }}>E-Ticaret Altyapısı</strong>
-            </div>
-            <div style={{ fontSize: '10px', color: '#64748b', marginLeft: '24px' }}>E-Com Diyagram: Use Case / Oluşturulma: 10 Mart</div>
-          </div>
-
-          <div style={{ backgroundColor: '#0f172a', padding: '12px', borderRadius: '6px', border: '1px solid #334155', cursor: 'pointer' }}>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
-              <PlusSquare size={16} style={{ marginRight: '8px', color: '#ef4444' }} />
-              <strong style={{ fontSize: '13px', color: '#f8fafc' }}>Hastane Otomasyonu</strong>
-            </div>
-            <div style={{ fontSize: '10px', color: '#64748b', marginLeft: '24px' }}>Diyagram: Sınıf / Oluşturulma: 5 Mart</div>
+      {/* SAĞ TARAF - ANA İÇERİK */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Üst Bar */}
+        <div style={{ padding: '15px 20px', borderBottom: '1px solid #334155', backgroundColor: '#1e293b', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+          <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 'normal' }}>Proje: Öğrenci Bilgi Sistemi</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <select
+              value={diagramType === 'use_case' ? 'use_case' : 'class'}
+              onChange={(e) => setDiagramType(e.target.value)}
+              disabled={umlLoading}
+              style={{
+                backgroundColor: '#0f172a',
+                color: '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '4px',
+                fontSize: '12px',
+                outline: 'none',
+              }}
+            >
+              <option value="class">Sınıf Diyagramı</option>
+              <option value="use_case">Use Case</option>
+            </select>
+          <button
+            type="button"
+            onClick={handleGenerateUml}
+            disabled={umlLoading}
+            style={{
+              backgroundColor: 'transparent',
+              color: '#38bdf8',
+              border: '1px solid #38bdf8',
+              padding: '8px 15px',
+              borderRadius: '4px',
+              cursor: umlLoading ? 'wait' : 'pointer',
+              opacity: umlLoading ? 0.7 : 1,
+            }}
+          >
+            {umlLoading ? 'Gönderiliyor…' : 'GÜNCELLE / ANALİZ ET'}
+          </button>
           </div>
         </div>
 
-        {/* SAĞ TARAF */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#0f172a' }}>
-          <DiagramGenerator />
+        {/* Çalışma Alanı */}
+        <div style={{ flex: 1, display: 'flex', padding: '20px', gap: '20px' }}>
+            {/* React Flow Tuvali */}
+            <div style={{ flex: 1, backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #334155', minHeight: 0 }}>
+                <ReactFlow
+                  nodes={nodes}
+                  edges={edges}
+                  onNodesChange={onNodesChange}
+                  onEdgesChange={onEdgesChange}
+                  fitView
+                  defaultEdgeOptions={{
+                    style: { stroke: '#64748b' },
+                    markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
+                  }}
+                >
+                    <Background color="#334155" gap={16} />
+                    <Controls style={{ backgroundColor: '#0f172a', fill: 'white' }} />
+                    <MiniMap nodeColor="#10b981" maskColor="rgba(15, 23, 42, 0.8)" style={{ backgroundColor: '#0f172a' }} />
+                </ReactFlow>
+            </div>
+            {/* Sağ panel: analiz çıktısı + aksiyonlar */}
+            <div style={{ width: '280px', flexShrink: 0, backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #334155', padding: '15px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                 <p style={{ margin: 0, fontSize: '12px', color: '#94a3b8', lineHeight: 1.45 }}>
+                   Analiz, veri toplama / toplantı aşamasında kaydedilen oda verisi üzerinden çalışır; ek metin kutusu yoktur.
+                 </p>
+                 {umlError ? (
+                   <div style={{ fontSize: '11px', color: '#f87171', lineHeight: 1.4 }}>{umlError}</div>
+                 ) : null}
+                 {umlResult ? (
+                   <div>
+                     <div style={{ fontSize: '11px', color: '#10b981', fontWeight: 'bold', marginBottom: '6px' }}>Diyagram JSON (API)</div>
+                     <pre
+                       style={{
+                         margin: 0,
+                         maxHeight: '180px',
+                         overflow: 'auto',
+                         fontSize: '10px',
+                         lineHeight: 1.35,
+                         color: '#cbd5e1',
+                         backgroundColor: '#0f172a',
+                         padding: '8px',
+                         borderRadius: '6px',
+                         border: '1px solid #334155',
+                         whiteSpace: 'pre-wrap',
+                         wordBreak: 'break-word',
+                       }}
+                     >
+                       {umlResult}
+                     </pre>
+                   </div>
+                 ) : null}
+                 <button onClick={() => navigate('/meeting')} style={{ width: '100%', backgroundColor: '#10b981', color: 'white', padding: '10px', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
+                    🎙️ Toplantı Odasına Git
+                 </button>
+                 <div style={{ fontSize: '12px', color: '#10b981', fontWeight: 'bold' }}>Sprint Görevleri</div>
+            </div>
         </div>
       </div>
     </div>

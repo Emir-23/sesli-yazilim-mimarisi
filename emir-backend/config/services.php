@@ -37,9 +37,15 @@ return [
 
     'gemini' => [
         'key' => env('GEMINI_API_KEY'),
-        'model' => env('GEMINI_MODEL', 'gemini-1.5-flash'),
+        'model' => env('GEMINI_MODEL', 'gemini-2.5-flash'),
         'timeout' => env('GEMINI_TIMEOUT', 30),
         'temperature' => env('GEMINI_TEMPERATURE', 0.3),
+        /** UML için ayrı sıcaklık; boşsa `temperature` kullanılır (genelde 0.2–0.35 iyi) */
+        'uml_temperature' => env('GEMINI_UML_TEMPERATURE'),
+        'top_p' => env('GEMINI_TOP_P', 0.92),
+        'max_output_tokens' => env('GEMINI_MAX_OUTPUT_TOKENS', 8192),
+        /** Gemini’de geçerli JSON üretimini zorlar; sorun çıkarsa false yapın */
+        'uml_json_mode' => env('GEMINI_UML_JSON_MODE', true),
     ],
 
     'deepgram' => [

@@ -15,10 +15,11 @@ Route::get('/ai-test', function () {
         // Örnek bir senaryo yazıyoruz
         $sampleText = 'Bir Kütüphane sisteminde Kitap ve Yazar sınıfları olmalı. Bir yazarın birçok kitabı olabilir.';
 
-        $result = $aiService->generateUmlFromText($sampleText);
+        $result = $aiService->generateUmlFromText($sampleText, 'class');
 
-        // Ekranda güzel görünmesi için <pre> etiketi kullanıyoruz
-        return "<pre style='background: #f4f4f4; padding: 20px; border-radius: 5px;'>".htmlspecialchars($result).'</pre>';
+        $pretty = json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+
+        return "<pre style='background: #f4f4f4; padding: 20px; border-radius: 5px;'>".htmlspecialchars($pretty).'</pre>';
 
     } catch (Exception $e) {
         return 'Hata Oluştu: '.$e->getMessage();

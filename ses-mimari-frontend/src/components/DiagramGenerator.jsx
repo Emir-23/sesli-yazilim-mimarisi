@@ -1,22 +1,31 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ReactFlow, { Background, Controls, applyEdgeChanges, applyNodeChanges } from 'reactflow';
+import ReactFlow, { Background, Controls, applyEdgeChanges, applyNodeChanges, MarkerType } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Download, Loader2 } from 'lucide-react';
+import { collectSessionMeetingContexts, collectMeetingContextForProject, meetingStorageKey, API_GENERATE_UML, API_GENERATE_TASKS, fetchProjectMeetingSummary, meetingSummaryProjectStub, normalizeAiReactFlowPayload } from '../workspace/constants';
 
-const API_GENERATE_UML = 'http://127.0.0.1:8000/api/generate-uml';
-const API_GENERATE_TASKS = 'http://127.0.0.1:8000/api/generate-tasks';
+const nodeCard = {
+  backgroundColor: '#f8fafc',
+  color: '#0a1628',
+  border: '1px solid #10b981',
+  borderRadius: '4px',
+  padding: '10px',
+  fontSize: '12px',
+};
+
+const arrowEnd = { type: MarkerType.ArrowClosed, width: 18, height: 18 };
 
 const initialNodes = [
-  { id: '1', position: { x: 50, y: 50 }, data: { label: 'AuthClass' }, style: { backgroundColor: '#1e293b', color: '#e2e8f0', border: '1px solid #10b981', borderRadius: '4px', padding: '10px', fontSize: '12px' } },
-  { id: '2', position: { x: 250, y: 50 }, data: { label: 'UserClass' }, style: { backgroundColor: '#1e293b', color: '#e2e8f0', border: '1px solid #10b981', borderRadius: '4px', padding: '10px', fontSize: '12px' } },
-  { id: '3', position: { x: 50, y: 150 }, data: { label: 'Session' }, style: { backgroundColor: '#1e293b', color: '#e2e8f0', border: '1px solid #10b981', borderRadius: '4px', padding: '10px', fontSize: '12px' } },
-  { id: '4', position: { x: 250, y: 150 }, data: { label: 'Project' }, style: { backgroundColor: '#1e293b', color: '#e2e8f0', border: '1px solid #10b981', borderRadius: '4px', padding: '10px', fontSize: '12px' } },
+  { id: '1', position: { x: 50, y: 50 }, data: { label: 'AuthClass' }, style: { ...nodeCard } },
+  { id: '2', position: { x: 250, y: 50 }, data: { label: 'UserClass' }, style: { ...nodeCard } },
+  { id: '3', position: { x: 50, y: 150 }, data: { label: 'Session' }, style: { ...nodeCard } },
+  { id: '4', position: { x: 250, y: 150 }, data: { label: 'Project' }, style: { ...nodeCard } },
 ];
 
 const initialEdges = [
-  { id: 'e1-2', source: '1', target: '2', label: '1:1', style: { stroke: '#94a3b8' } },
-  { id: 'e1-3', source: '1', target: '3', label: '1:*', style: { stroke: '#94a3b8' } },
-  { id: 'e2-4', source: '2', target: '4', label: '1:1', style: { stroke: '#94a3b8' } },
+  { id: 'e1-2', source: '1', target: '2', label: '1:1', style: { stroke: '#64748b' }, markerEnd: { ...arrowEnd } },
+  { id: 'e1-3', source: '1', target: '3', label: '1:N', style: { stroke: '#64748b' }, markerEnd: { ...arrowEnd } },
+  { id: 'e2-4', source: '2', target: '4', label: '1:1', style: { stroke: '#64748b' }, markerEnd: { ...arrowEnd } },
 ];
 
 export default function DiagramGenerator({ projectId = '1' }) {
@@ -30,7 +39,7 @@ export default function DiagramGenerator({ projectId = '1' }) {
   const [diagramType, setDiagramType] = useState('class');
   const [umlLoading, setUmlLoading] = useState(false);
   const [toast, setToast] = useState(null);
-  const [meetingText, setMeetingText] = useState('');
+  const [analysisText, setAnalysisText] = useState('');
 
   const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), []);
   const onEdgesChange = useCallback((changes) => setEdges((eds) => applyEdgeChanges(changes, eds)), []);
@@ -68,23 +77,42 @@ export default function DiagramGenerator({ projectId = '1' }) {
   }, []);
 
   useEffect(() => {
-    const saved = sessionStorage.getItem(`meeting:${projectId}`);
+    const saved = sessionStorage.getItem(meetingStorageKey(projectId));
     if (!saved) return;
     try {
       const parsed = JSON.parse(saved);
-      const composed = [parsed.notes, parsed.messages].filter(Boolean).join('\n');
-      if (composed.trim()) setMeetingText(composed);
+      const ac = typeof parsed.analysisContext === 'string' ? parsed.analysisContext.trim() : '';
+      const legacy = [parsed.notes, parsed.messages].filter(Boolean).join('\n').trim();
+      const composed = ac || legacy;
+      if (composed.trim()) setAnalysisText(composed);
     } catch (error) {
       console.error('Meeting verisi okunamadi:', error);
     }
   }, [projectId]);
 
-  const generateTasks = useCallback(async ({ silent = false } = {}) => {
-    const text = (meetingText || '').trim();
-    if (!text) {
-      if (!silent) showToast('Görev üretmek için önce toplantı metni gir.', 'error');
-      return;
+  const composeAiInputText = useCallback(async () => {
+    const stub = meetingSummaryProjectStub(projectId);
+    const chronological = (await fetchProjectMeetingSummary(stub)).trim();
+    const legacy = (
+      analysisText ||
+      collectMeetingContextForProject(projectId) ||
+      collectSessionMeetingContexts()
+    ).trim();
+    if (chronological) {
+      return legacy && legacy.trim() !== chronological
+        ? `[Toplantı özeti — veritabanı (kronolojik)]\n${chronological}\n\n[Ek — oturum]\n${legacy}`
+        : `[Toplantı özeti — veritabanı (kronolojik)]\n${chronological}`;
     }
+    return legacy;
+  }, [analysisText, projectId]);
+
+  const generateTasks = useCallback(
+    async ({ silent = false } = {}) => {
+      const text = (await composeAiInputText()).trim();
+      if (!text) {
+        if (!silent) showToast('Görev üretmek için önce veri toplama aşamasından içerik oluşturun.', 'error');
+        return;
+      }
 
     setTasksLoading(true);
     setTasksError('');
@@ -96,7 +124,7 @@ export default function DiagramGenerator({ projectId = '1' }) {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify(text ? { text } : { project_id: Number(projectId) || 1 }),
+        body: JSON.stringify({ text }),
       });
 
       const data = await response.json();
@@ -117,13 +145,13 @@ export default function DiagramGenerator({ projectId = '1' }) {
     } finally {
       setTasksLoading(false);
     }
-  }, [meetingText, projectId, showToast]);
+  }, [composeAiInputText, showToast]);
 
   const handleGenerate = async () => {
-    const text = (meetingText || '').trim();
+    const text = (await composeAiInputText()).trim();
     if (!text) {
-      setUmlError('Diyagram üretmeden önce toplantı metni girmen gerekiyor.');
-      showToast('Boş metin ile UML üretilemez.', 'error');
+      setUmlError('Diyagram için önce veri toplama / toplantı aşamasından içerik oluşturun (oda verisi bulunamadı).');
+      showToast('Analiz edilecek veri yok.', 'error');
       return;
     }
 
@@ -138,7 +166,7 @@ export default function DiagramGenerator({ projectId = '1' }) {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify({ text, type: diagramType }),
+        body: JSON.stringify({ text, type: diagramType === 'use_case' ? 'use_case' : 'class' }),
       });
 
       const data = await response.json();
@@ -146,14 +174,14 @@ export default function DiagramGenerator({ projectId = '1' }) {
         throw new Error(data.message || `Istek basarisiz (HTTP ${response.status})`);
       }
 
-      if (data.nodes && data.edges) {
-        const highlightedNodes = applyBottleneckHighlight(data.nodes, data.edges);
-        setNodes(highlightedNodes);
-        setEdges(data.edges);
+      const diagram = normalizeAiReactFlowPayload(data);
+      if (!diagram) {
+        throw new Error('Sunucudan geçerli nodes/edges alınamadı.');
       }
-      if (data.nodes || data.diagram_data) {
-        showToast('Diyagram başarıyla oluşturuldu!', 'success');
-      }
+      const highlightedNodes = applyBottleneckHighlight(diagram.nodes, diagram.edges);
+      setNodes(highlightedNodes);
+      setEdges(diagram.edges);
+      showToast('Diyagram başarıyla oluşturuldu!', 'success');
 
       // Sadece kullanıcı açıkça isterse diyagramla birlikte görev üret.
       if (autoGenerateTasks) {
@@ -186,13 +214,13 @@ export default function DiagramGenerator({ projectId = '1' }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           <h2 style={{ margin: 0, fontSize: '14px', fontWeight: '500', color: '#f8fafc' }}>React Flow Tuvali</h2>
           <select 
-            value={diagramType} 
+            value={diagramType === 'use_case' ? 'use_case' : 'class'} 
             onChange={(e) => setDiagramType(e.target.value)}
             disabled={umlLoading}
             style={{ backgroundColor: '#0f172a', color: '#94a3b8', border: '1px solid #334155', padding: '6px 8px', borderRadius: '4px', outline: 'none', fontSize: '12px' }}
           >
-            <option value="class">[ Sınıf Diyagramı ]</option>
-            <option value="state">[ Durum Diyagramı ]</option>
+            <option value="class">Sınıf Diyagramı</option>
+            <option value="use_case">Use Case</option>
           </select>
           <label
             style={{
@@ -251,27 +279,18 @@ export default function DiagramGenerator({ projectId = '1' }) {
         </div>
       </div>
 
-      <div style={{ flex: 1, display: 'flex', padding: '15px', gap: '15px', overflow: 'hidden' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <label style={{ fontSize: '11px', color: '#94a3b8' }}>Toplantı metni</label>
-          <textarea
-            value={meetingText}
-            onChange={(e) => setMeetingText(e.target.value)}
-            placeholder="Orn: Kutuphane sisteminde Kitap ve Yazar siniflari..."
-            style={{
-              width: '100%', minHeight: '90px',
-              padding: '8px',
-              fontSize: '11px',
-              backgroundColor: '#0f172a',
-              color: '#e2e8f0',
-              border: '1px solid #334155',
-              borderRadius: '4px',
-              resize: 'vertical',
-            }}
-          />
-          <div style={{ flex: 1, backgroundColor: '#1e293b', borderRadius: '6px', border: '1px solid #334155', position: 'relative' }}>
+      <div style={{ flex: 1, display: 'flex', padding: '15px', gap: '15px', overflow: 'hidden', minHeight: 0 }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+          <div style={{ flex: 1, backgroundColor: '#1e293b', borderRadius: '6px', border: '1px solid #334155', position: 'relative', minHeight: 0 }}>
           <div style={{ position: 'absolute', top: 10, width: '100%', textAlign: 'center', zIndex: 10, color: '#94a3b8', fontSize: '11px', letterSpacing: '1px', fontWeight: 'bold' }}>REACT FLOW TUVALİ</div>
-          <ReactFlow nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} fitView>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            fitView
+            defaultEdgeOptions={{ style: { stroke: '#64748b' }, markerEnd: { ...arrowEnd } }}
+          >
             <Background color="#2a2a2a" gap={16} size={1} />
             <Controls style={{ fill: 'white' }} showInteractive={false} />
           </ReactFlow>

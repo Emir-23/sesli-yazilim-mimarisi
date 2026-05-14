@@ -7,6 +7,7 @@ use App\Http\Requests\StoreChatMessageRequest;
 use App\Models\ChatLog;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
 
 class ProjectChatController extends Controller
 {
@@ -25,16 +26,19 @@ class ProjectChatController extends Controller
 
     public function store(StoreChatMessageRequest $request, Project $project): JsonResponse
     {
-        $payload = $request->validated();
+        $safe = $request->safe();
 
-        $chatLog = ChatLog::query()->create([
-            'project_id' => $project->id,
-            'user_id' => $payload['user_id'] ?? null,
-            'user_name' => $payload['user_name'] ?? 'Anonymous',
-            'message' => $payload['message'],
-            'message_kind' => $payload['message_kind'] ?? 'plain_text',
-            'sent_at' => $payload['sent_at'] ?? now(),
-        ]);
+        $payload = [
+            'message' => $safe['message'],
+            'sent_at' => $safe->has('sent_at') && $safe['sent_at'] !== null
+                ? Carbon::parse($safe['sent_at'])
+                : now(),
+            'message_kind' => $safe['message_kind'] ?? 'plain_text',
+            'user_id' => $safe['user_id'] ?? null,
+            'user_name' => $safe['user_name'] ?? 'Anonymous',
+        ];
+
+        $chatLog = $project->chatLogs()->create($payload);
 
         broadcast(new ChatMessageSent($chatLog))->toOthers();
 

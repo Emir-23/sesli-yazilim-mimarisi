@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\Transcript;
 use App\Services\DeepgramService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
 
 class ProjectTranscriptController extends Controller
 {
@@ -26,16 +27,19 @@ class ProjectTranscriptController extends Controller
 
     public function store(StoreTranscriptRequest $request, Project $project): JsonResponse
     {
-        $payload = $request->validated();
+        $safe = $request->safe();
 
-        $transcript = Transcript::query()->create([
-            'project_id' => $project->id,
-            'user_id' => $payload['user_id'] ?? null,
-            'user_name' => $payload['user_name'] ?? 'Anonymous',
-            'content' => $payload['content'],
-            'is_final' => (bool) ($payload['is_final'] ?? false),
-            'spoken_at' => $payload['spoken_at'] ?? now(),
-        ]);
+        $payload = [
+            'content' => $safe['content'],
+            'is_final' => (bool) ($safe['is_final'] ?? false),
+            'spoken_at' => $safe->has('spoken_at') && $safe['spoken_at'] !== null
+                ? Carbon::parse($safe['spoken_at'])
+                : now(),
+            'user_id' => $safe['user_id'] ?? null,
+            'user_name' => $safe['user_name'] ?? 'Anonymous',
+        ];
+
+        $transcript = $project->transcripts()->create($payload);
 
         broadcast(new TranscriptCaptured($transcript))->toOthers();
 
