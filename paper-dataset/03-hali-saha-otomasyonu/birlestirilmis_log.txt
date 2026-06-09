@@ -1,0 +1,65 @@
+## Proje: Halı Saha Otomasyonu
+
+[Mesajlar]
+
+[21:12] Emir: Halı saha otomasyonu için çok karmaşık gitmeyelim. Müşteri, Saha, Rezervasyon, Ödeme ve Kampanya sınıfları yeterli olur.
+
+[21:14] Semih: Aynen. Müşteri sınıfında id, adSoyad ve telefon alanları olsun.
+
+[21:15] Emir: Saha sınıfında da id, sahaAdi, konum ve saatlikUcret tutalım.
+
+[21:17] Semih: Rezervasyon sınıfı önemli. İçinde id, tarih, baslangicSaati, bitisSaati ve durum alanları olsun.
+
+[21:19] Emir: Müşteri ile Rezervasyon arasında 1:N ilişki kuralım. Bir müşteri birden fazla rezervasyon yapabilir.
+
+[21:20] Semih: Saha ile Rezervasyon da 1:N olsun. Çünkü aynı saha farklı saatlerde birçok kez rezerve edilebilir.
+
+[21:22] Emir: Bu arada 8 GB VRAM laptop iş görüyor ama AI tarafında model çalıştırırken baya sınırda kalıyor.
+
+[21:23] Semih: Aynen, özellikle local model açınca fark ediliyor. Neyse ödeme sınıfını ekleyelim.
+
+[21:25] Emir: Ödeme içinde odemeTutari, odemeTuru ve odemeDurumu olsun. Rezervasyon ile Ödeme arasında 1:1 ilişki kuralım.
+
+[21:27] Semih: Kampanya sınıfı da olsun. kampanyaAdi ve indirimOrani yeterli.
+
+[21:28] Emir: Kampanya ile Rezervasyon arasında 1:N ilişki verelim. Bir kampanya birden fazla rezervasyonda kullanılabilir.
+
+[21:29] Emir: Ses geliyor mu, halı saha sistemi için müşteri sınıfı olacak. Müşteride ad soyad ve telefon tutulacak.
+
+[21:29] Semih: Geliyor. Saha sınıfında saha adı, konum ve saatlik ücret olsun.
+
+[21:29] Emir: Reze rezervasyon sınıfında tarih, başlangıç saati, bitiş saati ve durum bilgisi olacak.
+
+[21:30] Semih: Müşteri birden fazla rezervasyon yapabilir. O yüzden müşteri ile rezervasyon bire çok.
+
+[21:30] Emir: Saha ile rezervasyon da bire çok olacak. Aynı saha farklı saatlerde tekrar tekrar kiralanabilir.
+
+[21:31] Semih: Ödeme sınıfı rezervasyona bire bir bağlı olsun. Ödeme tutarı, ödeme türü ve ödeme durumu tutalım.
+
+[21:31] Emir: Bu arada Elazığspoun maçında stad baya doluydu galiba, ama onu sonra konuşalım.
+
+[21:31] Semih: Aynen kayda teknik kısım girsin. Kampanya sınıfı da ekleyelim, indirim oranını tutsun.
+
+[21:32] Emir: Kampanya ile rezervasyon arasında bire çok ilişki olacak. Bir kampanya birden fazla rezervasyonda kullanılabilir.
+
+[Dosya: Proje 3.txt]
+
+[10:30] Semih: Emir, halı saha otomasyonunda Müşteri, Saha, Rezervasyon, Ödeme ve Kampanya sınıfları yeterli olur.
+
+[10:32] Emir: Müşteri sınıfına id, adSoyad ve telefon alanlarını ekliyorum.
+
+[10:34] Semih: Saha sınıfında id, sahaAdi, konum ve saatlikUcret alanları olsun.
+
+[10:36] Emir: Rezervasyon sınıfı için id, tarih, baslangicSaati, bitisSaati ve durum alanlarını yazıyorum.
+
+[10:38] Semih: Müşteri ile Rezervasyon arasında 1:N ilişki olsun. Bir müşteri birden fazla rezervasyon yapabilir.
+
+[10:40] Emir: Saha ile Rezervasyon arasında da 1:N ilişki kuruyorum. Bir saha için farklı zamanlarda birçok rezervasyon olabilir.
+
+[10:42] Semih: Ödeme sınıfını da ekleyelim. Ödeme alanları id, odemeTutari, odemeTuru ve odemeDurumu olsun.
+
+[10:44] Emir: Rezervasyon ile Ödeme arasında 1:1 ilişki olacak.
+
+[10:46] Semih: Kampanya sınıfı da olsun. id, kampanyaAdi ve indirimOrani alanları yeterli.
+
+[10:48] Emir: Kampanya ile Rezervasyon arasında 1:N ilişki kuralım. Aynı kampanya birden fazla rezervasyonda kullanılabilir.
