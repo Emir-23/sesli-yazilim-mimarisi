@@ -1,0 +1,81 @@
+## Proje: Canlı Destek Uygulaması
+
+[Mesajlar]
+
+[20:02] Emir: Canlı destek sistemi için çok fazla sınıf açmayalım. Kullanıcı, DestekTalebi, Mesaj, DestekPersoneli, Departman ve Değerlendirme yeterli olur.
+
+[20:04] Semih: Tamamdır. Kullanıcı sınıfında id, adSoyad, eposta ve telefon alanları olsun.
+
+[20:06] Emir: Destek personeli için ayrı sınıf açalım. DestekPersoneli içinde adSoyad ve uzmanlikAlani tutulabilir.
+
+[20:08] Semih: Departman sınıfını da ekleyelim. Teknik destek, ödeme desteği gibi kategoriler burada tutulur.
+
+[20:10] Emir: Departman ile DestekPersoneli arasında 1:N ilişki olsun. Bir departmanda birden fazla çalışan olabilir.
+
+[20:12] Semih: DestekTalebi sınıfı ana yapı olacak. konu, olusturmaTarihi ve durum alanları yeterli.
+
+[20:14] Emir: Kullanıcı ile DestekTalebi arasında 1:N ilişki kuralım. Bir kullanıcı birden fazla destek kaydı oluşturabilir.
+
+[20:16] Semih: DestekPersoneli ile DestekTalebi arasında da 1:N ilişki olsun. Bir personel birçok talep ile ilgilenebilir.
+
+[20:18] Emir: Mesaj sınıfını da ekleyelim. mesajMetni ve gonderimSaati alanları olsun.
+
+[20:20] Semih: DestekTalebi ile Mesaj arasında 1:N ilişki olacak. Çünkü bir görüşmede çok mesaj bulunabilir.
+
+[20:22] Emir: Bu arada 8 GB VRAM hâlâ normal kullanım için iyi ama AI destekli sistemlerde biraz zorlanıyor artık.
+
+[20:23] Semih: Aynen özellikle local model çalıştırınca direkt hissediliyor. Son olarak değerlendirme kısmını ekleyelim.
+
+[20:25] Emir: Değerlendirme sınıfında puan ve yorum alanları olsun. Destek görüşmesinden sonra kullanıcı değerlendirme yapabilsin.
+
+[20:27] Semih: DestekTalebi ile Değerlendirme arasında 1:1 ilişki yeterli olur.
+
+[20:29] Emir: Ses geliyor mu Semih, canlı destek sistemi için kullanıcı sınıfını oluşturuyorum. Kullanıcı içinde ad soyad, e posta ve telefon olacak.
+
+[20:30] Semih: Geliyor. Destek personeli sınıfında uzmanlık alanı tutulacak.
+
+[20:31] Emir: Departman sınıfı teknik destek ya da ödeme desteği gibi alanları temsil edecek.
+
+[20:32] Semih: Departman ile destek personeli arasında bire çok ilişki olacak.
+
+[20:33] Emir: Destek talebi sınıfında konu, oluşturma tarihi ve durum alanları olacak.
+
+[20:34] Semih: Kullanıcı birden fazla destek talebi oluşturabilir. O yüzden kullanıcı ile destek talebi bire çok.
+
+[20:35] Emir: Destek personeli de birden fazla taleple ilgilenebilir.
+
+[20:36] Semih: Mesaj sınıfı konuşmaları temsil edecek. STT bazen mesajı mesajj diye yazabiliyor.
+
+[20:37] Emir: Destek talebi ile mesaj arasında bire çok ilişki var. Çünkü konuşmada çok mesaj bulunabilir.
+
+[20:38] Semih: Bu arada Elazığspor’un maçı yine baya kalabalık geçmiş diyorlar.
+
+[20:39] Emir: Sonra bakarız ona. Değerlendirme sınıfında puan ve yorum alanı olsun.
+
+[20:40] Semih: DestekTalebi ile Değerlendirme arasında bire bir ilişki kuralım.
+
+[Dosya: Proje 8.txt]
+
+[12:10] Semih: Emir, canlı destek uygulaması için Kullanıcı, DestekTalebi, Mesaj, DestekPersoneli, Departman ve Değerlendirme sınıfları yeterli olur.
+
+[12:12] Emir: Kullanıcı sınıfına id, adSoyad, eposta ve telefon alanlarını ekliyorum.
+
+[12:14] Semih: DestekPersoneli sınıfında id, adSoyad ve uzmanlikAlani alanları olsun.
+
+[12:16] Emir: Departman sınıfı için id ve departmanAdi alanlarını ekledim.
+
+[12:18] Semih: Departman ile DestekPersoneli arasında 1:N ilişki olsun. Bir departmanda birden fazla çalışan bulunabilir.
+
+[12:20] Emir: DestekTalebi sınıfında konu, olusturmaTarihi ve durum alanlarını tutuyorum.
+
+[12:22] Semih: Kullanıcı ile DestekTalebi arasında 1:N ilişki olacak.
+
+[12:24] Emir: DestekPersoneli ile DestekTalebi arasında da 1:N ilişki kuruyorum.
+
+[12:26] Semih: Mesaj sınıfında mesajMetni ve gonderimSaati alanları yeterli olur.
+
+[12:28] Emir: DestekTalebi ile Mesaj arasında 1:N ilişki olacak. Bir talepte birden fazla mesaj bulunabilir.
+
+[12:30] Semih: Değerlendirme sınıfı için puan ve yorum alanları yeterli olur.
+
+[12:32] Emir: DestekTalebi ile Değerlendirme arasında 1:1 ilişki kuruyorum.
