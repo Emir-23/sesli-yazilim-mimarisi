@@ -1,5 +1,3 @@
-# 2. ADIM: Dağıtılmış Meeting-Summary Log Verisi
-
 ## Proje: Forum Sitesi
 
 [Mesajlar]
@@ -31,8 +29,6 @@
 [19:28] Emir: Bu arada 8 GB VRAM artık normal kullanım için tamam ama AI araçlarında baya limit hissettiriyor.
 
 [19:29] Semih: Aynen özellikle birkaç model açınca direkt doluyor. Neyse Rozet içinde rozetAdi ve aciklama alanları olsun.
-
-[Mikrofondan gelen ses (STT)]
 
 [19:31] Emir: Ses geliyor mu Semih, forum sistemi için kullanıcı sınıfı olacak. Kullanıcı adı, e posta ve şifre tutulacak.
 
