@@ -1,0 +1,81 @@
+## Proje: Blog Sitesi
+
+[Mesajlar]
+
+[16:05] Emir: Blog sitesi için sade ama yeterli bir yapı kuralım. Kullanıcı, Yazı, Kategori, Yorum, Etiket ve Beğeni sınıfları olsun.
+
+[16:07] Semih: Tamamdır. Kullanıcı sınıfında id, adSoyad, eposta ve sifre alanları yeterli olur.
+
+[16:09] Emir: Yazı sınıfı blog gönderilerini temsil etsin. baslik, icerik, yayinTarihi ve durum alanları olsun.
+
+[16:11] Semih: Kullanıcı ile Yazı arasında 1:N ilişki kuralım. Bir kullanıcı birden fazla yazı yazabilir.
+
+[16:13] Emir: Kategori sınıfını da ekleyelim. Kategori içinde id ve kategoriAdi olsun.
+
+[16:15] Semih: Kategori ile Yazı arasında 1:N ilişki mantıklı. Bir kategoriye birden fazla yazı bağlı olabilir.
+
+[16:17] Emir: Yorum sınıfı da lazım. yorumMetni ve yorumTarihi alanları olsun.
+
+[16:19] Semih: Yazı ile Yorum arasında 1:N ilişki olacak. Bir yazıya birden fazla yorum yapılabilir.
+
+[16:21] Emir: Kullanıcı ile Yorum arasında da 1:N ilişki kuralım. Çünkü bir kullanıcı birçok yorum yazabilir.
+
+[16:23] Semih: Etiket sınıfını da ekleyelim. etiketAdi alanı yeterli olur.
+
+[16:25] Emir: Yazı ile Etiket arasında N:N ilişki olsun. Bir yazıda birden fazla etiket olabilir.
+
+[16:27] Semih: Bu arada 8 GB VRAM günlük geliştirme için iyi ama AI model çalıştırınca artık biraz yetersiz kalıyor.
+
+[16:28] Emir: Aynen onu ben de fark ettim. Son olarak Beğeni sınıfını ekleyelim.
+
+[16:30] Semih: Beğeni içinde begeniTarihi olsun. Kullanıcıların yazıları beğenmesini temsil eder.
+
+[16:32] Emir: Ses geliyor mu Semih, blog sitesi için kullanıcı sınıfı olacak. Kullanıcı içinde ad soyad, e posta ve şifre tutulacak.
+
+[16:33] Semih: Geliyor. Yazı sınıfında başlık, içerik, yayın tarihi ve durum alanları olacak.
+
+[16:34] Emir: Kullanıcı birden fazla yazı oluşturabilir. Yani kullanıcı ile yazı arasında bire çok ilişki var.
+
+[16:35] Semih: Kategori sınıfı yazının konusunu temsil edecek. Kategori ile yazı arasında da bire çok ilişki olacak.
+
+[16:36] Emir: Yorum sınıfını da ekliyoruz. Yorum metni ve yorum tarihi olsun.
+
+[16:37] Semih: Yazı ile yorum bire çok. Bir yazının altında çok yorum olabilir.
+
+[16:38] Emir: Kullanıcı ile yorum arasında da bire çok ilişki var. Kullanıcı birden fazla yorum yapabilir.
+
+[16:39] Semih: Etiket sınıfında etiket adı olacak. Yazı ile etiket çoktan çoğa ilişki olacak.
+
+[16:40] Emir: STT bazen etiketi etiket değil etikettt gibi yazıyor ama önemli olan sınıf Etiket.
+
+[16:41] Semih: Bu arada Elazığspor’un maçına bakamadım, stad yine dolu muydu?
+
+[16:42] Emir: Sonra bakarız. Beğeni sınıfı kullanıcıların yazıları beğenmesini tutacak.
+
+[16:43] Semih: Beğeni içinde beğeni tarihi olsun. Kullanıcı ve yazı arasında beğeni ilişkisini temsil eder.
+
+[Dosya: Proje 7.txt]
+
+[10:20] Semih: Emir, blog sitesi için Kullanıcı, Yazı, Kategori, Yorum, Etiket ve Beğeni sınıfları yeterli olur.
+
+[10:22] Emir: Kullanıcı sınıfına id, adSoyad, eposta ve sifre alanlarını ekliyorum.
+
+[10:24] Semih: Yazı sınıfında id, baslik, icerik, yayinTarihi ve durum alanları olsun.
+
+[10:26] Emir: Kullanıcı ile Yazı arasında 1:N ilişki kuruyorum. Bir kullanıcı birden fazla yazı oluşturabilir.
+
+[10:28] Semih: Kategori sınıfı için id ve kategoriAdi alanları yeterli olur.
+
+[10:30] Emir: Kategori ile Yazı arasında 1:N ilişki olacak.
+
+[10:32] Semih: Yorum sınıfında yorumMetni ve yorumTarihi alanlarını tutalım.
+
+[10:34] Emir: Yazı ile Yorum arasında 1:N ilişki var. Kullanıcı ile Yorum arasında da 1:N ilişki olacak.
+
+[10:36] Semih: Etiket sınıfı da olsun. etiketAdi alanı yeterli.
+
+[10:38] Emir: Yazı ile Etiket arasında N:N ilişki kuruyorum. Bir yazının birden fazla etiketi olabilir.
+
+[10:40] Semih: Beğeni sınıfını da ekleyelim. begeniTarihi alanı olsun.
+
+[10:42] Emir: Beğeni sınıfı Kullanıcı ile Yazı arasındaki beğenme işlemini temsil edecek.
