@@ -1,0 +1,93 @@
+## Proje: Kütüphane Sistemi
+
+[Mesajlar]
+
+[18:10] Emir: Kütüphane sistemi için sınıfları sade ama yeterli tutalım. Üye, Kitap, Kategori, Yazar, Ödünç, Görevli ve Ceza olsun.
+
+[18:12] Semih: Tamamdır. Üye sınıfında id, adSoyad, telefon ve eposta alanları olsun.
+
+[18:14] Emir: Kitap sınıfında id, kitapAdi, isbn, yayinYili ve stokAdedi tutalım. Böylece kitap bilgisi yeterli olur.
+
+[18:16] Semih: Kategori sınıfını da ekleyelim. Kategori içinde id ve kategoriAdi olsun.
+
+[18:17] Emir: Kategori ile Kitap arasında 1:N ilişki kurarız. Bir kategoriye birden fazla kitap bağlı olabilir.
+
+[18:19] Semih: Yazar sınıfı da olsun. id ve yazarAdi yeterli. Ama Yazar ile Kitap ilişkisi N:N olmalı bence.
+
+[18:21] Emir: Evet, çünkü bir yazarın birden fazla kitabı olabilir. Bir kitabın da birden fazla yazarı olabilir.
+
+[18:23] Semih: Görevli sınıfını da ekleyelim. Kütüphanede ödünç verme işlemini yapan personeli temsil eder.
+
+[18:24] Emir: Görevli alanları id, adSoyad ve sicilNo olsun.
+
+[18:26] Semih: Ödünç sınıfı asıl işlem sınıfı olacak. İçinde almaTarihi, iadeTarihi ve durum alanları bulunsun.
+
+[18:28] Emir: Üye ile Ödünç arasında 1:N ilişki olsun. Bir üye birden fazla kitap ödünç alabilir.
+
+[18:30] Semih: Kitap ile Ödünç arasında da 1:N ilişki olmalı. Aynı kitap farklı zamanlarda farklı üyelere verilebilir.
+
+[18:32] Emir: Görevli ile Ödünç ilişkisini de 1:N yapalım. Bir görevli birden fazla ödünç işlemi oluşturabilir.
+
+[18:34] Semih: Bu arada 8 GB VRAM’li laptop geliştirme için hâlâ iyi ama yapay zeka modellerinde biraz sınıra dayanıyor.
+
+[18:35] Emir: Aynen özellikle local model açınca fark ediyor. Neyse Ceza sınıfını da unutmayalım.
+
+[18:37] Semih: Ceza içinde id, cezaTutari ve aciklama olsun. Ödünç işlemi geç iade edilirse ceza oluşur.
+
+[18:39] Emir: Ödünç ile Ceza arasında 1:1 ilişki kuralım. Her ödünç işlemine en fazla bir ceza bağlanabilir.
+
+[18:41] Emir: Ses geliyor mu Semih, kütüphane sistemi için üyeyi ekliyoruz. Üye sınıfında ad soyad, telefon ve e posta olacak.
+
+[18:42] Semih: Geliyor geliyor. Kitap sınıfında kitap adı, isbn, yayın yılı ve stok adedi tutulacak.
+
+[18:43] Emir: Kategori sınıfı kitap türünü temsil edecek. Kategoriyle kitap arasında bire çok ilişki var.
+
+[18:44] Semih: Yazar sınıfını da ekleyelim. Yazarla kitap arasında çoktan çoğa ilişki olacak.
+
+[18:45] Emir: Evet çünkü bir kitabın iki yazarı olabilir. Bir yazarın da birden fazla kitabı olabilir.
+
+[18:46] Semih: Görevli sınıfında ad soyad ve sicil numarası tutulacak. Ödünç işlemini görevli başlatıyor.
+
+[18:47] Emir: Burada STT ödünç kelimesini bazen ödünçç ya da odunc diye yazıyor olabilir. Ödünç sınıfı alma tarihi, iade tarihi ve durum alanlarını tutacak.
+
+[18:48] Semih: Üye birden fazla ödünç işlemi yapabilir. O yüzden Üye ile Ödünç bire çok.
+
+[18:49] Emir: Kitap ile Ödünç de bire çok olacak. Aynı kitap farklı zamanlarda tekrar ödünç verilebilir.
+
+[18:50] Semih: Görevli ile Ödünç arasında da bire çok ilişki olacak.
+
+[18:51] Emir: Bu arada Elazığspor’un son maçında stad baya doluydu sanırım, ama kapasiteyi yine karıştırıyorum.
+
+[18:52] Semih: Onu sonra bakarız. Ceza sınıfı geç iade için olacak. Ceza tutarı ve açıklama alanı yeterli.
+
+[18:53] Emir: Ödünç ile Ceza bire bir olsun. Her ödünç işleminde en fazla bir ceza oluşsun.
+
+[Dosya: Proje 4.txt]
+
+[09:15] Semih: Emir, kütüphane sistemi için Üye, Kitap, Kategori, Yazar, Ödünç, Görevli ve Ceza sınıfları yeterli olur.
+
+[09:17] Emir: Üye sınıfına id, adSoyad, telefon ve eposta alanlarını ekliyorum.
+
+[09:19] Semih: Kitap sınıfında id, kitapAdi, isbn, yayinYili ve stokAdedi alanları olsun.
+
+[09:21] Emir: Kategori sınıfı da gerekli. Kategori içinde id ve kategoriAdi tutulabilir.
+
+[09:23] Semih: Kategori ile Kitap arasında 1:N ilişki olsun. Bir kategoriye birden fazla kitap bağlanabilir.
+
+[09:25] Emir: Yazar sınıfı için id ve yazarAdi alanları yeterli olur.
+
+[09:27] Semih: Yazar ile Kitap arasında N:N ilişki kuralım. Çünkü bir kitabın birden fazla yazarı olabilir.
+
+[09:29] Emir: Görevli sınıfı da olsun. Kütüphane personeli için id, adSoyad ve sicilNo tutalım.
+
+[09:31] Semih: Ödünç sınıfı kitap alma sürecini temsil etsin. Alanları id, almaTarihi, iadeTarihi ve durum olsun.
+
+[09:33] Emir: Üye ile Ödünç arasında 1:N ilişki olacak. Bir üye birden fazla ödünç işlemi yapabilir.
+
+[09:35] Semih: Kitap ile Ödünç arasında da 1:N ilişki tanımlayalım.
+
+[09:37] Emir: Görevli ile Ödünç arasında 1:N ilişki olsun. Bir görevli birçok ödünç işlemi oluşturabilir.
+
+[09:39] Semih: Ceza sınıfı geç iade durumunda kullanılacak. id, cezaTutari ve aciklama alanları olsun.
+
+[09:41] Emir: Ödünç ile Ceza arasında 1:1 ilişki kuralım. Bir ödünç işlemine en fazla bir ceza bağlanabilir.
