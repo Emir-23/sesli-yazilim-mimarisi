@@ -1,0 +1,79 @@
+## Proje: Personel Takip Sistemi
+
+[Mesajlar]
+
+[17:08] Emir: Personel takip sistemi için çok karmaşık gitmeyelim. Personel, Departman, Görev, Mesai, Maaş ve İzin sınıfları yeterli olur.
+
+[17:10] Semih: Tamamdır. Personel sınıfında id, adSoyad, tcNo, telefon ve iseGirisTarihi alanları olsun.
+
+[17:12] Emir: Departman sınıfında da id, departmanAdi ve konum tutalım.
+
+[17:14] Semih: Departman ile Personel arasında 1:N ilişki kuralım. Bir departmanda birden fazla personel olabilir.
+
+[17:16] Emir: Görev sınıfını da ekleyelim. gorevAdi ve maasKatsayisi alanları yeterli olur.
+
+[17:18] Semih: Görev ile Personel arasında da 1:N ilişki olsun. Aynı görevde birden fazla çalışan bulunabilir.
+
+[17:20] Emir: Mesai sınıfında tarih, girisSaati ve cikisSaati tutulacak.
+
+[17:22] Semih: Personel ile Mesai arasında 1:N ilişki olacak. Çünkü bir personelin birçok mesai kaydı olabilir.
+
+[17:24] Emir: Maaş sınıfı için ay, toplamMaas ve odemeTarihi alanlarını ekleyelim.
+
+[17:25] Semih: Personel ile Maaş arasında da 1:N ilişki mantıklı olur.
+
+[17:27] Emir: İzin sınıfını da ekleyelim. izinTuru, baslangicTarihi, bitisTarihi ve durum alanları olsun.
+
+[17:29] Semih: Personel birden fazla izin talebi oluşturabilir. O yüzden Personel ile İzin bire çok olacak.
+
+[17:31] Emir: Bu arada geçen baktım 8 GB VRAM günlük yazılım geliştirme için yeterli ama AI tarafında artık sınırda kalıyor.
+
+[17:32] Semih: Aynen özellikle büyük model açınca hissediliyor. Neyse personel sistemi tamam gibi.
+
+[17:34] Emir: Ses geliyor mu Semih, personel sistemi için çalışan bilgilerini tutacağız. Personel sınıfında ad soyad, TC numarası ve telefon olacak.
+
+[17:35] Semih: Geliyor. Departman sınıfında departman adı ve konum tutulacak.
+
+[17:36] Emir: Departman ile personel arasında bire çok ilişki kuruyoruz. Bir departmanda birden fazla çalışan olabilir.
+
+[17:37] Semih: Görev sınıfında görev adı ve maaş katsayısı olacak. Aynı görevde birden fazla personel bulunabilir.
+
+[17:38] Emir: Mesai sınıfı giriş çıkış saatlerini tutacak. STT bazen mesaiyi mesa diye yazabiliyor.
+
+[17:39] Semih: Personel ile Mesai arasında bire çok ilişki var. Çünkü her gün için kayıt tutulacak.
+
+[17:40] Emir: Maaş sınıfında ay, toplam maaş ve ödeme tarihi alanları olacak.
+
+[17:41] Semih: Personel ile Maaş arasında da bire çok ilişki olacak.
+
+[17:42] Emir: Bu arada Elazığspor’un maç sonucu ne oldu ya dün bakamadım.
+
+[17:43] Semih: Sonra bakarız ona. İzin sınıfında izin türü, başlangıç tarihi, bitiş tarihi ve durum bilgisi olsun.
+
+[17:44] Emir: Personel birden fazla izin talebi oluşturabilir. O yüzden Personel ile İzin bire çok olacak.
+
+[Dosya: Proje 6.txt]
+
+[13:05] Semih: Emir, personel takip sistemi için Personel, Departman, Görev, Mesai, Maaş ve İzin sınıfları yeterli olur.
+
+[13:07] Emir: Personel sınıfına id, adSoyad, tcNo, telefon ve iseGirisTarihi alanlarını ekliyorum.
+
+[13:09] Semih: Departman sınıfında id, departmanAdi ve konum alanları olsun.
+
+[13:11] Emir: Departman ile Personel arasında 1:N ilişki kuruyorum. Bir departmanda birden fazla çalışan olabilir.
+
+[13:13] Semih: Görev sınıfında gorevAdi ve maasKatsayisi alanları olsun.
+
+[13:15] Emir: Görev ile Personel arasında 1:N ilişki olacak. Aynı görevde birden fazla personel bulunabilir.
+
+[13:17] Semih: Mesai sınıfında tarih, girisSaati ve cikisSaati alanlarını tutalım.
+
+[13:19] Emir: Personel ile Mesai arasında 1:N ilişki kuruyorum.
+
+[13:21] Semih: Maaş sınıfı için ay, toplamMaas ve odemeTarihi alanları yeterli olur.
+
+[13:23] Emir: Personel ile Maaş arasında da 1:N ilişki olacak.
+
+[13:25] Semih: İzin sınıfında izinTuru, baslangicTarihi, bitisTarihi ve durum alanları olsun.
+
+[13:27] Emir: Personel birden fazla izin talebi oluşturabileceği için Personel ile İzin arasında 1:N ilişki kuruyorum.
