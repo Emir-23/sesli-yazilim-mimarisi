@@ -1,0 +1,89 @@
+# 2. ADIM: Dağıtılmış Meeting-Summary Log Verisi
+
+## Proje: Forum Sitesi
+
+[Mesajlar]
+
+[19:05] Emir: Forum sistemi için çok fazla detay açmayalım. Kullanıcı, Kategori, Konu, Mesaj, Beğeni ve Rozet sınıfları yeterli olur.
+
+[19:07] Semih: Tamamdır. Kullanıcı sınıfında id, kullaniciAdi, eposta, sifre ve kayitTarihi alanları olsun.
+
+[19:09] Emir: Kategori sınıfında kategoriAdi ve aciklama tutalım.
+
+[19:11] Semih: Kategori ile Konu arasında 1:N ilişki olacak. Bir kategoride birden fazla konu açılabilir.
+
+[19:13] Emir: Konu sınıfında baslik, olusturmaTarihi ve durum alanları olsun.
+
+[19:15] Semih: Kullanıcı ile Konu arasında da 1:N ilişki kuralım. Bir kullanıcı birden fazla konu açabilir.
+
+[19:17] Emir: Mesaj sınıfı forum cevaplarını temsil etsin. mesajMetni ve gonderimTarihi alanları yeterli olur.
+
+[19:19] Semih: Konu ile Mesaj arasında 1:N ilişki olacak. Bir konuda çok mesaj olabilir.
+
+[19:21] Emir: Kullanıcı ile Mesaj arasında da 1:N ilişki var. Kullanıcı birden fazla mesaj gönderebilir.
+
+[19:23] Semih: Beğeni sınıfını da ekleyelim. Kullanıcıların mesajları beğenmesini temsil etsin.
+
+[19:25] Emir: Beğeni içinde begeniTarihi alanı olsun.
+
+[19:27] Semih: Rozet sistemi de ekleyelim. Kullanıcılar başarı kazandıkça rozet alabilsin.
+
+[19:28] Emir: Bu arada 8 GB VRAM artık normal kullanım için tamam ama AI araçlarında baya limit hissettiriyor.
+
+[19:29] Semih: Aynen özellikle birkaç model açınca direkt doluyor. Neyse Rozet içinde rozetAdi ve aciklama alanları olsun.
+
+[Mikrofondan gelen ses (STT)]
+
+[19:31] Emir: Ses geliyor mu Semih, forum sistemi için kullanıcı sınıfı olacak. Kullanıcı adı, e posta ve şifre tutulacak.
+
+[19:32] Semih: Geliyor. Kategori sınıfı forum bölümlerini temsil edecek.
+
+[19:33] Emir: Kategori ile konu arasında bire çok ilişki kuruyoruz. Bir kategoride birden fazla konu olabilir.
+
+[19:34] Semih: Konu sınıfında başlık, oluşturma tarihi ve durum alanı olacak.
+
+[19:35] Emir: Kullanıcı birden fazla konu açabilir. O yüzden kullanıcı ile konu bire çok.
+
+[19:36] Semih: Mesaj sınıfı cevapları temsil edecek. STT bazen mesajı mesaaj diye yazıyor olabilir.
+
+[19:37] Emir: Konu ile mesaj arasında bire çok ilişki var. Bir konu altında çok mesaj olabilir.
+
+[19:38] Semih: Kullanıcı ile mesaj arasında da bire çok ilişki olacak.
+
+[19:39] Emir: Beğeni sınıfı kullanıcıların mesajlara verdiği beğenileri tutacak.
+
+[19:40] Semih: Bir mesajı birden fazla kullanıcı beğenebilir.
+
+[19:41] Emir: Bu arada Elazığspor’un maç özeti yine her yerde çıkıyor, stad baya doluymuş galiba.
+
+[19:42] Semih: Sonra bakarız ona. Rozet sınıfı kullanıcı başarılarını temsil edecek.
+
+[19:43] Emir: Kullanıcı birden fazla rozete sahip olabilir. Rozet içinde rozet adı ve açıklama alanları olacak.
+
+[Dosya: Proje 9.txt]
+
+[11:40] Semih: Emir, forum sitesi için Kullanıcı, Kategori, Konu, Mesaj, Beğeni ve Rozet sınıfları yeterli olur.
+
+[11:42] Emir: Kullanıcı sınıfına id, kullaniciAdi, eposta, sifre ve kayitTarihi alanlarını ekliyorum.
+
+[11:44] Semih: Kategori sınıfında kategoriAdi ve aciklama alanları olsun.
+
+[11:46] Emir: Kategori ile Konu arasında 1:N ilişki kuruyorum. Bir kategoride birden fazla konu açılabilir.
+
+[11:48] Semih: Konu sınıfında baslik, olusturmaTarihi ve durum alanları yeterli olur.
+
+[11:50] Emir: Kullanıcı ile Konu arasında 1:N ilişki olacak. Bir kullanıcı birden fazla konu açabilir.
+
+[11:52] Semih: Mesaj sınıfında mesajMetni ve gonderimTarihi alanlarını tutalım.
+
+[11:54] Emir: Konu ile Mesaj arasında 1:N ilişki kuruyorum.
+
+[11:56] Semih: Kullanıcı ile Mesaj arasında da 1:N ilişki olacak.
+
+[11:58] Emir: Beğeni sınıfında begeniTarihi alanı yeterli olur.
+
+[12:00] Semih: Beğeni sınıfı kullanıcıların mesajları beğenmesini temsil edecek.
+
+[12:02] Emir: Rozet sınıfında rozetAdi ve aciklama alanlarını ekledim.
+
+[12:04] Semih: Kullanıcı ile Rozet arasında 1:N ilişki kuralım. Bir kullanıcı birden fazla rozete sahip olabilir.
