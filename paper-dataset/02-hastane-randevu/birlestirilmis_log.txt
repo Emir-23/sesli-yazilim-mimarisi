@@ -1,0 +1,69 @@
+Proje: Hastane Randevu Sistemi
+
+[Mesajlar]
+
+[19:42] Emir: Hastane randevu sistemi için çok fazla sınıf açmayalım. Hasta, Doktor, Bölüm, Randevu, Reçete ve Tahlil yeterli olur.
+
+[19:44] Semih: Aynen. Hasta sınıfında id, adSoyad, tcNo ve telefon alanları olsun.
+
+[19:45] Emir: Doktor sınıfında da id, adSoyad ve uzmanlik tutalım.
+
+[19:47] Semih: Bölüm sınıfını da ekleyelim. Bölüm içinde id ve bolumAdi olsun.
+
+[19:48] Emir: Bölüm ile Doktor arasında 1 ilişki kuralım. Bir bölümde birden fazla doktor çalışabilir.
+
+[19:50] Semih: Randevu sınıfında id, randevuTarihi, saat ve durum alanları olsun.
+
+[19:52] Emir: Hasta ile Randevu arasında 1 ilişki olacak. Bir hasta birden fazla randevu alabilir.
+
+[19:53] Semih: Doktor ile Randevu da 1 olsun. Bir doktorun birden fazla randevusu olabilir.
+
+[19:55] Emir: Bu arada 8 GB VRAM’li laptop hâlâ iş görüyor ama yapay zeka tarafında biraz sınırda kalıyor.
+
+[19:56] Semih: Doğru, özellikle model çalıştırınca fark ediliyor. Neyse randevu sonucunda reçete de olmalı.
+
+[19:58] Emir: Randevu ile Reçete arasında 1:1 ilişki kuralım. Her randevudan en fazla bir reçete çıksın.
+
+[20:00] Semih: Tahlil kısmını da ekleyelim. Bir randevuda birden fazla tahlil istenebilir. Randevu ile Tahlil 1 olsun.
+
+[20:01:10] Emir: Ses geliyor mu, hastane sistemi için hasta sınıfını ekliyoruz. Hasta içinde ad soyad, TC numarası ve telefon olacak.
+
+[20:01:32] Semih: Geliyor. Doktor sınıfında doktor adı soyadı ve uzmanlık alanı tutulacak.
+
+[20:01:58] Emir: Bölüm sınıfı da olacak. Mesela kardiyoloji, göz, ortopedi gibi. Bölüm ile doktor arasında bire çok ilişki var.
+
+[20:02:20] Semih: Randevu sınıfında tarih, saat ve durum bilgisi olacak. Hasta birden fazla randevu alabilir.
+
+[20:02:48] Emir: Doktorun da birden fazla randavu... yani randevusu olabilir. STT bazen yanlış yazıyor.
+
+[20:03:15] Semih: Randevu sonucunda reçete yazılacak. Randevu ile reçete bire bir olsun.
+
+[20:03:40] Emir: Tahlil sınıfını da unutmayalım. Bir randevuda birden fazla tahlil istenebilir.
+
+[20:04:02] Semih: Bu arada Elazığspor’un stadı yine dolmuş diyorlar, maç baya hareketli geçmiş.
+
+[20:04:15] Emir: Onu sonra konuşuruz. Teknik olarak Randevu ile Tahlil bire çok olacak.
+
+[Dosya: Proje 2.txt]
+
+[11:00] Semih: Emir, hastane randevu sisteminde Hasta, Doktor, Bölüm, Randevu, Reçete ve Tahlil sınıfları yeterli olur.
+
+[11:02] Emir: Hasta sınıfına id, adSoyad, tcNo ve telefon alanlarını ekliyorum.
+
+[11:04] Semih: Doktor sınıfında id, adSoyad ve uzmanlik alanları olsun.
+
+[11:06] Emir: Bölüm sınıfı da gerekli. Bölüm içinde id ve bolumAdi tutalım.
+
+[11:08] Semih: Bölüm ile Doktor arasında 1 ilişki olsun. Bir bölümde birden fazla doktor çalışabilir.
+
+[11:10] Emir: Randevu sınıfında id, randevuTarihi, saat ve durum alanları olsun.
+
+[11:12] Semih: Hasta ile Randevu arasında 1 ilişki kuralım. Bir hasta birden fazla randevu alabilir.
+
+[11:14] Emir: Doktor ile Randevu arasında da 1 ilişki olacak.
+
+[11:16] Semih: Her randevu sonucunda hastaya en fazla bir reçete yazılır. Bu yüzden Randevu ile Reçete arasında 1:1 ilişki kuralım.
+
+[11:18] Emir: Tahlil için de ayrı sınıf açıyorum. Tahlil içinde id, tahlilAdi ve sonuc alanları olsun.
+
+[11:20] Semih: Bir randevuda birden fazla tahlil istenebilir. Bu yüzden Randevu ile Tahlil arasında 1 ilişki tanımlayalım.
