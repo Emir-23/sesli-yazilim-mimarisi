@@ -16,7 +16,6 @@
 
 [20:28] Semih: Ödeme sınıfını da ekleyelim. Ödeme içinde id, odemeTutari ve odemeTuru olsun. Sipariş ile Ödeme arasında 1:1 ilişki kurarız.
 
-
 [20:29:10] Emir: Ses geliyor mu Semih, bir deneme yapıyorum. E ticaret sisteminde kullanıcı sınıfı olacak, yani müşterinin adı soyadı e postası telefonu tutulacak.
 
 [20:29:34] Semih: Geliyor geliyor. Sepet ile kullanıcı bire bir olsun dedik ya, her kullanıcının tek sepeti var.
