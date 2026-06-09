@@ -1,0 +1,49 @@
+[Mesajlar]
+
+[20:14] Emir: E-ticaret sistemi için çok karmaşık gitmeyelim bence. Ana sınıflar Kullanıcı, Ürün, Kategori, Sepet, Sipariş ve Ödeme olsun.
+
+[20:16] Semih: Aynen, Kullanıcı sınıfında id, adSoyad, eposta, sifre ve telefon alanları yeterli olur.
+
+[20:18] Emir: Kullanıcı ile Sepet arasında 1:1 ilişki kuralım. Her kullanıcının bir aktif sepeti olsun.
+
+[20:21] Semih: Ürün tarafında da id, urunAdi, fiyat ve stokMiktari tutalım. Kategori ile Ürün arasında 1:N ilişki olsun.
+
+[20:23] Emir: Bu arada 8 GB VRAM laptopta normal yazılım için tamam ama AI model açınca hemen doluyor ya.
+
+[20:24] Semih: Aynen onu sonra konuşuruz. Sepet ile Ürün arasında N:N ilişki kuralım, çünkü bir sepette birden fazla ürün olur, ürün de farklı sepetlerde olabilir.
+
+[20:26] Emir: Sipariş sınıfında id, siparisTarihi, toplamTutar ve durum alanları olsun.
+
+[20:28] Semih: Ödeme sınıfını da ekleyelim. Ödeme içinde id, odemeTutari ve odemeTuru olsun. Sipariş ile Ödeme arasında 1:1 ilişki kurarız.
+
+[Mikrofondan gelen ses (STT)]
+
+[20:29:10] Emir: Ses geliyor mu Semih, bir deneme yapıyorum. E ticaret sisteminde kullanıcı sınıfı olacak, yani müşterinin adı soyadı e postası telefonu tutulacak.
+
+[20:29:34] Semih: Geliyor geliyor. Sepet ile kullanıcı bire bir olsun dedik ya, her kullanıcının tek sepeti var.
+
+[20:30:02] Emir: Ürün sınıfında ürün adı fiyat stok miktarı olacak. Kategoriyle ürün arasında bire çok bağ kuruyoruz.
+
+[20:30:24] Semih: Sipa... sipariş sınıfında sipariş tarihi toplam tutar ve durum alanı olsun.
+
+[20:30:50] Emir: Ödeme sınıfı siparişle bire bir olacak. Odeme tutarı ve ödeme türü tutulacak.
+
+[20:31:12] Semih: Bu arada Elazığspor’un maçına baktın mı stad baya doluydu galiba.
+
+[20:31:25] Emir: Onu sonra konuşalım ya kayda girmesin. Sepet ürün ilişkisi çoktan çoğa olacak, onu unutmayalım.
+
+[Dosya: Proje 1.txt]
+
+[11:00] Semih: Emir, e-ticaret sisteminde müşteri bilgileri için Kullanıcı sınıfını kullanalım. Kullanıcı içinde id, adSoyad, eposta, sifre ve telefon alanları olsun.
+
+[11:03] Emir: Tamamdır. Ürünleri de ayrı sınıfta tutuyorum. Ürün sınıfında id, urunAdi, fiyat ve stokMiktari olacak.
+
+[11:05] Semih: Kategoriyi de ekleyelim. Bir kategori birden fazla ürüne sahip olabilir. Bu yüzden Kategori ile Ürün arasında 1:N ilişki olsun.
+
+[11:08] Emir: Sepet tarafında Kullanıcı ile Sepet arasında 1:1 ilişki kuruyorum. Her kullanıcının bir sepeti olacak.
+
+[11:10] Semih: Sepet ile Ürün arasında N:N ilişki verelim. Çünkü bir sepette birden fazla ürün olabilir.
+
+[11:12] Emir: Sipariş sınıfında siparisTarihi, toplamTutar ve durum alanlarını tutalım.
+
+[11:15] Semih: Ödeme sınıfı da siparişe bağlı olsun. Sipariş ile Ödeme arasında 1:1 ilişki olacak. Ödeme alanları odemeTutari ve odemeTuru olabilir.
