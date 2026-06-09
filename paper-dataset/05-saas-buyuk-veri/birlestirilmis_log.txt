@@ -1,0 +1,83 @@
+## Proje: SaaS Büyük Veri Sistemi
+
+[Mesajlar]
+
+[22:05] Emir: SaaS büyük veri sistemi için çok fazla sınıf açmadan ilerleyelim. Kullanıcı, Şirket, VeriSeti, Analiz, Rapor, Sunucu ve Abonelik yeterli olur.
+
+[22:07] Semih: Tamamdır. Kullanıcı sınıfında id, adSoyad, eposta ve sifre alanları olsun.
+
+[22:09] Emir: Şirket sınıfında da id, sirketAdi ve sektor tutalım. Bir şirkette birden fazla kullanıcı olabilir.
+
+[22:11] Semih: O zaman Şirket ile Kullanıcı arasında 1:N ilişki kuruyoruz.
+
+[22:13] Emir: VeriSeti sınıfı önemli. İçinde veriAdi, boyutGB ve yuklenmeTarihi olsun.
+
+[22:15] Semih: Şirket ile VeriSeti arasında da 1:N ilişki olacak. Çünkü şirket birden fazla veri yükleyebilir.
+
+[22:17] Emir: Analiz sınıfı veri işleme operasyonlarını temsil etsin. analizTuru, baslamaTarihi ve durum alanları yeterli.
+
+[22:19] Semih: VeriSeti ile Analiz arasında 1:N ilişki kuralım. Bir veri seti üzerinde birden fazla analiz çalıştırılabilir.
+
+[22:21] Emir: Rapor sınıfı da olsun. Analiz sonucu oluşan çıktıyı temsil eder.
+
+[22:22] Semih: Analiz ile Rapor arasında 1:1 ilişki mantıklı olur.
+
+[22:24] Emir: Sunucu sınıfını da ekleyelim. sunucuAdi, ramMiktari ve cpuCekirdek alanları olsun.
+
+[22:26] Semih: Bir sunucu birden fazla analiz çalıştırabilir. Sunucu ile Analiz ilişkisi 1:N olsun.
+
+[22:28] Emir: Bu arada 8 GB VRAM artık frontend geliştirme için yetiyor ama büyük AI modellerinde direkt darboğaz oluyor.
+
+[22:29] Semih: Aynen özellikle local inference tarafında hissediliyor. Neyse abonelik kısmını da ekleyelim.
+
+[22:31] Emir: Abonelik içinde paketAdi ve aylikUcret alanları olsun. Şirket ile Abonelik arasında 1:1 ilişki yeterli.
+
+[22:33] Emir: Ses geliyor mu Semih, SaaS büyük veri sistemi için kullanıcı sınıfını oluşturuyorum. Kullanıcı içinde ad soyad, e posta ve şifre alanı olacak.
+
+[22:34] Semih: Geliyor. Şirket sınıfında şirket adı ve sektör tutulacak. Bir şirkette birden fazla kullanıcı olabilir.
+
+[22:35] Emir: Veri seti sınıfı büyük veri dosyalarını temsil edecek. Veri adı, boyut ve yüklenme tarihi tutulacak.
+
+[22:36] Semih: Burada STT veri setini bazen veri setti diye yazıyor olabilir. VeriSeti ile Analiz arasında bire çok ilişki olacak.
+
+[22:37] Emir: Analiz sınıfında analiz türü, başlama tarihi ve durum bilgisi olsun.
+
+[22:38] Semih: Analiz sonucu rapor oluşacak. Analiz ile Rapor bire bir bağlı olsun.
+
+[22:39] Emir: Sunucu sınıfı da gerekli. Sunucu adı, RAM miktarı ve CPU çekirdeği tutulacak.
+
+[22:40] Semih: Bir sunucu aynı anda birden fazla analiz çalıştırabilir.
+
+[22:41] Emir: Bu arada Elazığspor’un maç özeti baya düşüyordu Twitter’da ama ben maçı kaçırdım.
+
+[22:42] Semih: Sonra bakarız ona. Şirket ile Abonelik arasında bire bir ilişki kuruyoruz.
+
+[22:43] Emir: Abonelik sınıfında paket adı ve aylık ücret alanları yeterli olur.
+
+[Dosya: Proje 5.txt]
+
+[14:10] Semih: Emir, SaaS büyük veri sistemi için Kullanıcı, Şirket, VeriSeti, Analiz, Rapor, Sunucu ve Abonelik sınıfları yeterli olur.
+
+[14:12] Emir: Kullanıcı sınıfına id, adSoyad, eposta ve sifre alanlarını ekliyorum.
+
+[14:14] Semih: Şirket sınıfında id, sirketAdi ve sektor alanları olsun.
+
+[14:16] Emir: Şirket ile Kullanıcı arasında 1:N ilişki kuruyorum. Bir şirkette birden fazla kullanıcı olabilir.
+
+[14:18] Semih: VeriSeti sınıfında veriAdi, boyutGB ve yuklenmeTarihi alanları olsun.
+
+[14:20] Emir: Şirket ile VeriSeti arasında 1:N ilişki olacak. Bir şirket birden fazla veri seti yükleyebilir.
+
+[14:22] Semih: Analiz sınıfı için analizTuru, baslamaTarihi ve durum alanlarını ekleyelim.
+
+[14:24] Emir: VeriSeti ile Analiz arasında 1:N ilişki tanımlıyorum.
+
+[14:26] Semih: Rapor sınıfı analiz çıktısını temsil edecek. Analiz ile Rapor arasında 1:1 ilişki olsun.
+
+[14:28] Emir: Sunucu sınıfını da ekledim. sunucuAdi, ramMiktari ve cpuCekirdek alanları bulunacak.
+
+[14:30] Semih: Sunucu ile Analiz arasında 1:N ilişki olsun. Bir sunucu birçok analiz çalıştırabilir.
+
+[14:32] Emir: Abonelik sınıfı için paketAdi ve aylikUcret alanları yeterli olur.
+
+[14:34] Semih: Şirket ile Abonelik arasında 1:1 ilişki kuralım. Her şirketin bir aktif aboneliği olsun.
