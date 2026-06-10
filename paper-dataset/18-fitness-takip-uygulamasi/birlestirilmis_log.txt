@@ -1,0 +1,83 @@
+## Proje: Fitness Takip Uygulaması
+
+[Mesajlar]
+
+[20:10] Emir: Fitness takip uygulaması için temel sınıfları belirleyelim. Kullanıcı, Antrenman, Egzersiz, Beslenme, Hedef ve Ölçüm yeterli olur.
+
+[20:12] Semih: Tamamdır. Kullanıcı sınıfında id, adSoyAd, eposta, telefon ve yas alanları olsun.
+
+[20:14] Emir: Antrenman sınıfı kullanıcının yaptığı spor programlarını temsil etsin. antrenmanAdi, tarih, sureDakika ve durum alanları yeterli.
+
+[20:16] Semih: Kullanıcı ile Antrenman arasında 1:N ilişki kuralım. Bir kullanıcı birden fazla antrenman kaydı oluşturabilir.
+
+[20:18] Emir: Egzersiz sınıfını da ekleyelim. egzersizAdi, tekrarSayisi ve setSayisi alanları olsun.
+
+[20:20] Semih: Antrenman ile Egzersiz arasında 1:N ilişki olacak. Bir antrenmanda birden fazla egzersiz bulunabilir.
+
+[20:22] Emir: Beslenme sınıfı günlük öğün kayıtlarını temsil etsin. ogunAdi, kalori ve tarih alanları yeterli olur.
+
+[20:24] Semih: Kullanıcı ile Beslenme arasında 1:N ilişki olsun. Bir kullanıcı birçok beslenme kaydı oluşturabilir.
+
+[20:26] Emir: Hedef sınıfını da ekleyelim. hedefAdi, hedefDegeri, baslangicTarihi ve bitisTarihi alanları olsun.
+
+[20:28] Semih: Kullanıcı ile Hedef arasında da 1:N ilişki olacak.
+
+[20:30] Emir: Ölçüm sınıfı kilo, boy, yağ oranı gibi verileri tutmalı.
+
+[20:32] Semih: Ölçüm içinde kilo, boy, yagOrani ve olcumTarihi alanları olsun. Kullanıcı ile Ölçüm arasında 1:N ilişki kuralım.
+
+[20:34] Emir: Bu arada 8 GB VRAM günlük yazılım için yetiyor ama fitness tarafında görüntü analizli AI model açarsan baya sınırda kalır.
+
+[20:35] Semih: Aynen özellikle kamera ile form analizi gibi şeylerde daha güçlü GPU ister.
+
+[20:37] Emir: Ses geliyor mu Semih, fitness takip uygulaması için kullanıcı sınıfını oluşturuyoruz. Kullanıcı içinde ad soyad, e posta, telefon ve yaş olacak.
+
+[20:38] Semih: Geliyor. Antrenman sınıfında antrenman adı, tarih, süre dakika ve durum bilgisi tutulacak.
+
+[20:39] Emir: Kullanıcı ile antrenman arasında bire çok ilişki var. Bir kullanıcı birden fazla antrenman oluşturabilir.
+
+[20:40] Semih: Egzersiz sınıfı antrenman içindeki hareketleri temsil edecek.
+
+[20:41] Emir: STT bazen egzersizi eksersiz diye yazabiliyor ama sınıf Egzersiz olacak.
+
+[20:42] Semih: Antrenman ile egzersiz arasında bire çok ilişki olacak.
+
+[20:43] Emir: Beslenme sınıfında öğün adı, kalori ve tarih alanları olsun.
+
+[20:44] Semih: Kullanıcı ile beslenme bire çok olacak. Her gün birden fazla öğün girilebilir.
+
+[20:45] Emir: Hedef sınıfı kullanıcının kilo verme ya da kas kazanma hedeflerini temsil edecek.
+
+[20:46] Semih: Kullanıcı ile hedef arasında bire çok ilişki olacak.
+
+[20:47] Emir: Bu arada Elazığspor’un maç videosunda stad atmosferi baya iyiydi.
+
+[20:48] Semih: Sonra bakarız ona. Ölçüm sınıfı kilo, boy ve yağ oranı gibi değerleri tutacak.
+
+[20:49] Emir: Kullanıcı ile Ölçüm arasında bire çok ilişki kuruyoruz.
+
+[Dosya: Proje 18.txt]
+
+[12:10] Semih: Emir, fitness takip uygulaması için Kullanıcı, Antrenman, Egzersiz, Beslenme, Hedef ve Ölçüm sınıfları yeterli olur.
+
+[12:12] Emir: Kullanıcı sınıfına id, adSoyad, eposta, telefon ve yas alanlarını ekliyorum.
+
+[12:14] Semih: Antrenman sınıfında antrenmanAdi, tarih, sureDakika ve durum alanları olsun.
+
+[12:16] Emir: Kullanıcı ile Antrenman arasında 1:N ilişki kuruyorum.
+
+[12:18] Semih: Egzersiz sınıfında egzersizAdi, tekrarSayisi ve setSayisi alanları yeterli olur.
+
+[12:20] Emir: Antrenman ile Egzersiz arasında 1:N ilişki olacak.
+
+[12:22] Semih: Beslenme sınıfında ogunAdi, kalori ve tarih alanlarını tutalım.
+
+[12:24] Emir: Kullanıcı ile Beslenme arasında 1:N ilişki kuruyorum.
+
+[12:26] Semih: Hedef sınıfında hedefAdi, hedefDegeri, baslangicTarihi ve bitisTarihi alanları olsun.
+
+[12:28] Emir: Kullanıcı ile Hedef arasında 1:N ilişki olacak.
+
+[12:30] Semih: Ölçüm sınıfında kilo, boy, yagOrani ve olcumTarihi alanları bulunmalı.
+
+[12:32] Emir: Kullanıcı ile Ölçüm arasında 1:N ilişki kuruyorum.
