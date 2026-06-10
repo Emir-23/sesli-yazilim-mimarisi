@@ -1,0 +1,81 @@
+## Proje: Haber Portalı
+
+[Mesajlar]
+
+[18:15] Emir: Haber portalı için temel sınıfları belirleyelim. Kullanıcı, Haber, Kategori, Yorum, Editör ve Etiket yeterli olur.
+
+[18:17] Semih: Tamamdır. Kullanıcı sınıfında id, adSoyad, eposta ve sifre alanları olsun.
+
+[18:19] Emir: Editör sınıfını da ayrı tutalım. Editör içinde adSoyad ve uzmanlikAlani alanları olabilir.
+
+[18:21] Semih: Editör ile Haber arasında 1:N ilişki kuralım. Bir editör birden fazla haber paylaşabilir.
+
+[18:23] Emir: Kategori sınıfında kategoriAdi alanı yeterli olur.
+
+[18:25] Semih: Kategori ile Haber arasında da 1:N ilişki olsun. Spor, teknoloji, ekonomi gibi kategoriler olabilir.
+
+[18:27] Emir: Haber sınıfında baslik, icerik, yayinTarihi ve goruntulenmeSayisi alanlarını tutalım.
+
+[18:29] Semih: Yorum sınıfını da ekleyelim. yorumMetni ve yorumTarihi alanları olsun.
+
+[18:31] Emir: Haber ile Yorum arasında 1:N ilişki olacak. Bir haberin altında birden fazla yorum bulunabilir.
+
+[18:33] Semih: Kullanıcı ile Yorum arasında da 1:N ilişki var. Kullanıcı birden fazla yorum yazabilir.
+
+[18:35] Emir: Etiket sınıfı da olsun. etiketAdi alanı yeterli.
+
+[18:37] Semih: Haber ile Etiket arasında N:N ilişki kuralım. Aynı haberde birden fazla etiket olabilir.
+
+[18:39] Emir: Bu arada 8 GB VRAM normal yazılım geliştirme için iyi ama AI tabanlı işlemlerde artık biraz zorlanıyor.
+
+[18:40] Semih: Aynen özellikle görüntü modeli açınca direkt hissediliyor.
+
+[18:42] Emir: Ses geliyor mu Semih, haber portalı sistemi için kullanıcı sınıfını oluşturuyorum. Kullanıcı içinde ad soyad, e posta ve şifre olacak.
+
+[18:43] Semih: Geliyor. Editör sınıfında uzmanlık alanı tutulacak.
+
+[18:44] Emir: Editör ile haber arasında bire çok ilişki olacak. Bir editör birden fazla haber paylaşabilir.
+
+[18:45] Semih: Kategori sınıfı haber türlerini temsil edecek. Kategori ile haber arasında bire çok ilişki var.
+
+[18:46] Emir: Haber sınıfında başlık, içerik, yayın tarihi ve görüntülenme sayısı olacak.
+
+[18:47] Semih: Yorum sınıfı kullanıcı yorumlarını temsil edecek.
+
+[18:48] Emir: Haber ile yorum arasında bire çok ilişki kuruyoruz.
+
+[18:49] Semih: Kullanıcı ile yorum arasında da bire çok ilişki olacak.
+
+[18:50] Emir: STT bazen etiketi etikeet diye yazabiliyor ama sınıf Etiket.
+
+[18:51] Semih: Etiket sınıfı haber anahtar kelimelerini temsil edecek.
+
+[18:52] Emir: Bu arada Elazığspor’un son maçında stad baya doluydu galiba.
+
+[18:53] Semih: Sonra bakarız ona. Haber ile etiket arasında çoktan çoğa ilişki olacak.
+
+[Dosya: Proje 13.txt]
+
+[11:10] Semih: Emir, haber portalı için Kullanıcı, Haber, Kategori, Yorum, Editör ve Etiket sınıfları yeterli olur.
+
+[11:12] Emir: Kullanıcı sınıfına id, adSoyad, eposta ve sifre alanlarını ekliyorum.
+
+[11:14] Semih: Editör sınıfında id, adSoyad ve uzmanlikAlani alanları olsun.
+
+[11:16] Emir: Editör ile Haber arasında 1:N ilişki kuruyorum.
+
+[11:18] Semih: Kategori sınıfında kategoriAdi alanı yeterli olur.
+
+[11:20] Emir: Kategori ile Haber arasında 1:N ilişki olacak. Bir kategori altında birden fazla haber bulunabilir.
+
+[11:22] Semih: Haber sınıfında baslik, icerik, yayinTarihi ve goruntulenmeSayisi alanlarını tutalım.
+
+[11:24] Emir: Yorum sınıfında yorumMetni ve yorumTarihi alanları olsun.
+
+[11:26] Semih: Haber ile Yorum arasında 1:N ilişki olacak.
+
+[11:28] Emir: Kullanıcı ile Yorum arasında da 1:N ilişki kuruyorum.
+
+[11:30] Semih: Etiket sınıfında etiketAdi alanı yeterli olur.
+
+[11:32] Emir: Haber ile Etiket arasında N:N ilişki olacak. Bir haberde birden fazla etiket kullanılabilir.
