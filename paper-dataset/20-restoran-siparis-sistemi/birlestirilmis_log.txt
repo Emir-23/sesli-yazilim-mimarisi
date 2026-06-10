@@ -1,0 +1,83 @@
+## Proje: Restoran Sipariş Sistemi
+
+[Mesajlar]
+
+[20:10] Emir: Restoran sipariş sistemi için sınıfları sade tutalım. Müşteri, Masa, MenüÜrünü, Sipariş, SiparişDetayı ve Ödeme yeterli olur.
+
+[20:12] Semih: Tamamdır. Müşteri sınıfında id, adSoyad ve telefon alanları olsun.
+
+[20:14] Emir: Masa sınıfını da ekleyelim. masaNo, kapasite ve durum alanları yeterli.
+
+[20:16] Semih: MenüÜrünü sınıfı yiyecek ve içecekleri temsil etsin. urunAdi, fiyat ve kategori alanları olsun.
+
+[20:18] Emir: Sipariş sınıfında siparisTarihi, toplamTutar ve durum alanlarını tutalım.
+
+[20:20] Semih: Müşteri ile Sipariş arasında 1:N ilişki olacak. Bir müşteri birden fazla sipariş verebilir.
+
+[20:22] Emir: Masa ile Sipariş arasında da 1:N ilişki kuralım. Aynı masa gün içinde birçok sipariş alabilir.
+
+[20:24] Semih: SiparişDetayı sınıfı sipariş içindeki ürünleri tutsun. adet ve araToplam alanları yeterli olur.
+
+[20:26] Emir: Sipariş ile SiparişDetayı arasında 1:N ilişki olacak. Bir siparişte birden fazla ürün olabilir.
+
+[20:28] Semih: MenüÜrünü ile SiparişDetayı arasında da 1:N ilişki kuralım. Aynı ürün farklı siparişlerde yer alabilir.
+
+[20:30] Emir: Ödeme sınıfı da gerekli. odemeTutari, odemeTarihi ve odemeTuru alanları olsun.
+
+[20:32] Semih: Sipariş ile Ödeme arasında 1:1 ilişki olacak.
+
+[20:34] Emir: Bu arada 8 GB VRAM günlük geliştirme için yeterli ama restoran tarafında görüntü tanıma gibi AI eklenirse sınırda kalabilir.
+
+[20:35] Semih: Aynen özellikle kamera ile masa/ürün algılama yapılırsa daha güçlü GPU ister.
+
+[20:37] Emir: Ses geliyor mu Semih, restoran sipariş sistemi için müşteri sınıfını oluşturuyoruz. Müşteri içinde ad soyad ve telefon olacak.
+
+[20:38] Semih: Geliyor. Masa sınıfında masa numarası, kapasite ve durum tutulacak.
+
+[20:39] Emir: Menü ürünü sınıfı yiyecek içecekleri temsil edecek. Ürün adı, fiyat ve kategori olacak.
+
+[20:40] Semih: STT bazen menü ürününü menü urunu ya da menü ürü diye kesiyor ama sınıf MenüÜrünü olacak.
+
+[20:41] Emir: Sipariş sınıfında sipariş tarihi, toplam tutar ve durum alanları olacak.
+
+[20:42] Semih: Müşteri ile sipariş bire çok ilişki. Bir müşteri birden fazla sipariş verebilir.
+
+[20:43] Emir: Masa ile sipariş de bire çok olacak. Aynı masadan gün içinde birçok sipariş açılabilir.
+
+[20:44] Semih: Sipariş detayı sınıfı siparişteki ürünleri temsil edecek.
+
+[20:45] Emir: Sipariş ile SiparişDetayı arasında bire çok ilişki kuruyoruz.
+
+[20:46] Semih: MenüÜrünü ile SiparişDetayı arasında da bire çok olacak.
+
+[20:47] Emir: Bu arada Elazığspor’un maç videosunda stad baya hareketli görünüyordu.
+
+[20:48] Semih: Sonra bakarız ona. Ödeme sınıfı siparişin ödeme bilgisini tutacak.
+
+[20:49] Emir: Sipariş ile Ödeme arasında bire bir ilişki olacak.
+
+[Dosya: Proje 20.txt]
+
+[11:10] Semih: Emir, restoran sipariş sistemi için Müşteri, Masa, MenüÜrünü, Sipariş, SiparişDetayı ve Ödeme sınıfları yeterli olur.
+
+[11:12] Emir: Müşteri sınıfına id, adSoyad ve telefon alanlarını ekliyorum.
+
+[11:14] Semih: Masa sınıfında id, masaNo, kapasite ve durum alanları olsun.
+
+[11:16] Emir: MenüÜrünü sınıfında urunAdi, fiyat ve kategori alanlarını tutalım.
+
+[11:18] Semih: Sipariş sınıfında siparisTarihi, toplamTutar ve durum alanları yeterli olur.
+
+[11:20] Emir: Müşteri ile Sipariş arasında 1:N ilişki kuruyorum.
+
+[11:22] Semih: Masa ile Sipariş arasında da 1:N ilişki olacak.
+
+[11:24] Emir: SiparişDetayı sınıfında adet ve araToplam alanlarını ekliyorum.
+
+[11:26] Semih: Sipariş ile SiparişDetayı arasında 1:N ilişki kuruyoruz.
+
+[11:28] Emir: MenüÜrünü ile SiparişDetayı arasında da 1:N ilişki olacak.
+
+[11:30] Semih: Ödeme sınıfında odemeTutari, odemeTarihi ve odemeTuru alanları olsun.
+
+[11:32] Emir: Sipariş ile Ödeme arasında 1:1 ilişki kuralım.
