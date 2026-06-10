@@ -1,0 +1,83 @@
+## Proje: Fatura Ödeme Modülü
+
+[Mesajlar]
+
+[21:05] Emir: Fatura ödeme sistemi için çok karmaşık gitmeyelim. Kullanıcı, Fatura, Ödeme, Abonelik, Kurum ve Bildirim sınıfları yeterli olur.
+
+[21:07] Semih: Tamamdır. Kullanıcı sınıfında id, adSoyad, telefon ve eposta alanları olsun.
+
+[21:09] Emir: Kurum sınıfı elektrik, su ya da internet şirketlerini temsil etsin. kurumAdi ve hizmetTuru alanları yeterli olur.
+
+[21:11] Semih: Kurum ile Fatura arasında 1:N ilişki kuralım. Bir kurumun birçok faturası olabilir.
+
+[21:13] Emir: Abonelik sınıfını da ekleyelim. aboneNo ve adres alanları olsun.
+
+[21:15] Semih: Kullanıcı ile Abonelik arasında 1:N ilişki olacak. Çünkü bir kullanıcının farklı abonelikleri olabilir.
+
+[21:17] Emir: Fatura sınıfında faturaNo, sonOdemeTarihi, tutar ve durum alanları olsun.
+
+[21:19] Semih: Abonelik ile Fatura arasında da 1:N ilişki mantıklı olur.
+
+[21:21] Emir: Ödeme sınıfını ekleyelim. odemeTarihi, odemeTutari ve odemeTuru alanları yeterli.
+
+[21:23] Semih: Her fatura için tek ödeme kaydı olsun. Fatura ile Ödeme arasında 1:1 ilişki kuralım.
+
+[21:25] Emir: Bildirim sınıfı da olsun. Kullanıcılara son ödeme tarihi yaklaşınca bildirim gönderebiliriz.
+
+[21:27] Semih: Bu arada 8 GB VRAM günlük kullanım için iyi ama AI tarafında artık limit hissettiriyor.
+
+[21:28] Emir: Aynen özellikle birkaç model açınca direkt performans düşüyor.
+
+[21:30] Semih: Bildirim sınıfında mesaj ve gonderimTarihi alanları yeterli olur.
+
+[21:32] Emir: Ses geliyor mu Semih, fatura ödeme sistemi için kullanıcı sınıfını oluşturuyorum. Kullanıcı içinde ad soyad, telefon ve e posta olacak.
+
+[21:33] Semih: Geliyor. Kurum sınıfı elektrik su doğalgaz gibi şirketleri temsil edecek.
+
+[21:34] Emir: Kurum ile fatura arasında bire çok ilişki olacak. Çünkü bir kurumun çok faturası olabilir.
+
+[21:35] Semih: Abonelik sınıfında abone numarası ve adres tutulacak.
+
+[21:36] Emir: Kullanıcı birden fazla aboneliğe sahip olabilir. O yüzden kullanıcı ile abonelik bire çok.
+
+[21:37] Semih: Fatura sınıfında fatura numarası, son ödeme tarihi, tutar ve durum alanları olacak.
+
+[21:38] Emir: STT bazen aboneliği abonelikk diye yazabiliyor ama sınıf Abonelik.
+
+[21:39] Semih: Abonelik ile fatura arasında bire çok ilişki kuruyoruz.
+
+[21:40] Emir: Ödeme sınıfı faturanın ödeme bilgisini temsil edecek.
+
+[21:41] Semih: Fatura ile ödeme bire bir olacak. Her fatura için tek ödeme kaydı bulunacak.
+
+[21:42] Emir: Bu arada Elazığspor’un maçı yine sosyal medyada baya dönüyordu dün.
+
+[21:43] Semih: Sonra bakarız ona. Bildirim sınıfı kullanıcıya gönderilen hatırlatma mesajlarını temsil edecek.
+
+[21:44] Emir: Kullanıcı ile Bildirim arasında bire çok ilişki olacak.
+
+[Dosya: Proje 10.txt]
+
+[15:00] Semih: Emir, fatura ödeme modülü için Kullanıcı, Fatura, Ödeme, Abonelik, Kurum ve Bildirim sınıfları yeterli olur.
+
+[15:02] Emir: Kullanıcı sınıfına id, adSoyad, telefon ve eposta alanlarını ekliyorum.
+
+[15:04] Semih: Kurum sınıfında kurumAdi ve hizmetTuru alanları olsun.
+
+[15:06] Emir: Kurum ile Fatura arasında 1:N ilişki kuruyorum.
+
+[15:08] Semih: Abonelik sınıfında aboneNo ve adres alanları yeterli olur.
+
+[15:10] Emir: Kullanıcı ile Abonelik arasında 1:N ilişki olacak.
+
+[15:12] Semih: Fatura sınıfında faturaNo, sonOdemeTarihi, tutar ve durum alanlarını tutalım.
+
+[15:14] Emir: Abonelik ile Fatura arasında 1:N ilişki kuruyorum. Bir abonelikte birden fazla fatura olabilir.
+
+[15:16] Semih: Ödeme sınıfında odemeTarihi, odemeTutari ve odemeTuru alanları olsun.
+
+[15:18] Emir: Fatura ile Ödeme arasında 1:1 ilişki olacak.
+
+[15:20] Semih: Bildirim sınıfında mesaj ve gonderimTarihi alanları yeterli olur.
+
+[15:22] Emir: Kullanıcı ile Bildirim arasında 1:N ilişki kuruyorum.
