@@ -1,0 +1,85 @@
+## Proje: Online Anket Sistemi
+
+[Mesajlar]
+
+[20:10] Emir: Online anket sistemi için temel sınıfları netleştirelim. Kullanıcı, Anket, Soru, Seçenek, Cevap ve Sonuç yeterli olur.
+
+[20:12] Semih: Tamamdır. Kullanıcı sınıfında id, adSoyad, eposta ve sifre alanları olsun.
+
+[20:14] Emir: Anket sınıfında anketBasligi, olusturmaTarihi ve durum alanlarını tutalım.
+
+[20:16] Semih: Kullanıcı ile Anket arasında 1:N ilişki olacak. Bir kullanıcı birden fazla anket oluşturabilir.
+
+[20:18] Emir: Soru sınıfını da ekleyelim. soruMetni ve soruTipi alanları yeterli olur.
+
+[20:20] Semih: Anket ile Soru arasında 1:N ilişki olsun. Bir ankette birden fazla soru bulunabilir.
+
+[20:22] Emir: Seçenek sınıfı çoktan seçmeli sorular için olacak. secenekMetni alanı yeterli.
+
+[20:24] Semih: Soru ile Seçenek arasında da 1:N ilişki kuruyoruz.
+
+[20:26] Emir: Cevap sınıfında cevapMetni ve cevapTarihi alanları olsun.
+
+[20:28] Semih: Kullanıcı ile Cevap arasında 1:N ilişki olacak. Bir kullanıcı birçok cevap verebilir.
+
+[20:30] Emir: Soru ile Cevap arasında da 1:N ilişki kuralım.
+
+[20:32] Semih: Sonuç sınıfı anket analizlerini temsil etsin. toplamKatilim ve analizTarihi alanları yeterli olur.
+
+[20:34] Emir: Anket ile Sonuç arasında 1:1 ilişki kuralım.
+
+[20:36] Semih: Bu arada 8 GB VRAM günlük geliştirme için iyi ama AI modellerinde artık limit hissettiriyor.
+
+[20:37] Emir: Aynen özellikle birkaç model açınca performans düşüyor.
+
+[20:39] Emir: Ses geliyor mu Semih, online anket sistemi için kullanıcı sınıfını oluşturuyorum. Kullanıcı içinde ad soyad, e posta ve şifre tutulacak.
+
+[20:40] Semih: Geliyor. Anket sınıfında anket başlığı, oluşturma tarihi ve durum bilgisi olacak.
+
+[20:41] Emir: Kullanıcı birden fazla anket oluşturabilir. O yüzden kullanıcı ile anket bire çok ilişki.
+
+[20:42] Semih: Soru sınıfı anket içindeki soruları temsil edecek.
+
+[20:43] Emir: Soru ile seçenek arasında bire çok ilişki olacak. Çünkü bir sorunun birden fazla seçeneği olabilir.
+
+[20:44] Semih: STT bazen seçeneği secenekk diye yazabiliyor ama sınıf Seçenek.
+
+[20:45] Emir: Cevap sınıfında cevap metni ve cevap tarihi tutulacak.
+
+[20:46] Semih: Kullanıcı ile cevap arasında bire çok ilişki olacak. Kullanıcı birçok cevap verebilir.
+
+[20:47] Emir: Soru ile cevap arasında da bire çok ilişki var.
+
+[20:48] Semih: Bu arada Elazığspor’un son maçında tribün baya doluydu galiba.
+
+[20:49] Emir: Sonra bakarız ona. Sonuç sınıfı anket analizlerini temsil edecek.
+
+[20:50] Semih: Anket ile Sonuç arasında bire bir ilişki kuruyoruz.
+
+[Dosya: Proje 12.txt]
+
+[14:20] Semih: Emir, online anket sistemi için Kullanıcı, Anket, Soru, Seçenek, Cevap ve Sonuç sınıfları yeterli olur.
+
+[14:22] Emir: Kullanıcı sınıfına id, adSoyad, eposta ve sifre alanlarını ekliyorum.
+
+[14:24] Semih: Anket sınıfında anketBasligi, olusturmaTarihi ve durum alanları olsun.
+
+[14:26] Emir: Kullanıcı ile Anket arasında 1:N ilişki kuruyorum.
+
+[14:28] Semih: Soru sınıfında soruMetni ve soruTipi alanları yeterli olur.
+
+[14:30] Emir: Anket ile Soru arasında 1:N ilişki olacak. Bir ankette birden fazla soru bulunabilir.
+
+[14:32] Semih: Seçenek sınıfında secenekMetni alanını tutalım.
+
+[14:34] Emir: Soru ile Seçenek arasında 1:N ilişki kuruyorum.
+
+[14:36] Semih: Cevap sınıfında cevapMetni ve cevapTarihi alanları olsun.
+
+[14:38] Emir: Kullanıcı ile Cevap arasında 1:N ilişki olacak.
+
+[14:40] Semih: Soru ile Cevap arasında da 1:N ilişki tanımlayalım.
+
+[14:42] Emir: Sonuç sınıfında toplamKatilim ve analizTarihi alanlarını ekledim.
+
+[14:44] Semih: Anket ile Sonuç arasında 1:1 ilişki kuralım.
