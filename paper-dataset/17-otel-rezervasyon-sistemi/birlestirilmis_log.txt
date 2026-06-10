@@ -1,0 +1,85 @@
+## Proje: Otel Rezervasyon Sistemi
+
+[Mesajlar]
+
+[20:05] Emir: Otel rezervasyon sistemi için temel sınıfları belirleyelim. Müşteri, Oda, Rezervasyon, Ödeme, Otel ve Hizmet yeterli olur.
+
+[20:07] Semih: Tamamdır. Müşteri sınıfında id, adSoyad, telefon ve eposta alanları olsun.
+
+[20:09] Emir: Otel sınıfında otelAdi, adres ve yildizSayisi alanlarını tutalım.
+
+[20:11] Semih: Otel ile Oda arasında 1:N ilişki kuralım. Bir otelde birden fazla oda olabilir.
+
+[20:13] Emir: Oda sınıfında odaNo, kapasite, gecelikUcret ve durum alanları olsun.
+
+[20:15] Semih: Rezervasyon sınıfı ana işlem yapısı olacak. girisTarihi, cikisTarihi, kisiSayisi ve durum alanları yeterli.
+
+[20:17] Emir: Müşteri ile Rezervasyon arasında 1:N ilişki kuruyoruz. Bir müşteri birden fazla rezervasyon yapabilir.
+
+[20:19] Semih: Oda ile Rezervasyon arasında da 1:N ilişki olsun. Aynı oda farklı tarihlerde tekrar rezerve edilebilir.
+
+[20:21] Emir: Ödeme sınıfını da ekleyelim. odemeTutari, odemeTarihi ve odemeTuru alanları yeterli olur.
+
+[20:23] Semih: Rezervasyon ile Ödeme arasında 1:1 ilişki kuralım.
+
+[20:25] Emir: Hizmet sınıfı da olsun. Kahvaltı, spa veya otopark gibi ek hizmetleri temsil etsin.
+
+[20:27] Semih: Hizmet içinde hizmetAdi ve fiyat alanları yeterli olur.
+
+[20:29] Emir: Rezervasyon ile Hizmet arasında N:N ilişki olacak. Çünkü bir rezervasyonda birden fazla hizmet kullanılabilir.
+
+[20:31] Semih: Bu arada 8 GB VRAM normal yazılım geliştirme için hâlâ iyi ama AI tarafında artık biraz limit hissettiriyor.
+
+[20:32] Emir: Aynen özellikle görsel model çalıştırınca daha net hissediliyor.
+
+[20:34] Emir: Ses geliyor mu Semih, otel rezervasyon sistemi için müşteri sınıfını oluşturuyoruz. Müşteri içinde ad soyad, telefon ve e posta olacak.
+
+[20:35] Semih: Geliyor. Otel sınıfında otel adı, adres ve yıldız sayısı tutulacak.
+
+[20:36] Emir: Otel ile oda arasında bire çok ilişki var. Bir otelde birçok oda bulunabilir.
+
+[20:37] Semih: Oda sınıfında oda numarası, kapasite, gecelik ücret ve durum olacak.
+
+[20:38] Emir: Rezervasyon sınıfında giriş tarihi, çıkış tarihi, kişi sayısı ve durum alanları tutulacak.
+
+[20:39] Semih: STT bazen rezervasyonu rezarvasyon diye yazabiliyor ama sınıf Rezervasyon olacak.
+
+[20:40] Emir: Müşteri ile rezervasyon arasında bire çok ilişki var.
+
+[20:41] Semih: Oda ile rezervasyon da bire çok olacak. Aynı oda farklı tarihlerde tekrar kiralanabilir.
+
+[20:42] Emir: Ödeme sınıfı rezervasyon ödeme bilgisini temsil edecek.
+
+[20:43] Semih: Rezervasyon ile ödeme bire bir olacak.
+
+[20:44] Emir: Bu arada Elazığspor’un maç görüntülerinde stad yine baya doluydu.
+
+[20:45] Semih: Sonra bakarız ona. Hizmet sınıfı spa veya kahvaltı gibi ek servisleri temsil edecek.
+
+[20:46] Emir: Rezervasyon ile hizmet arasında çoktan çoğa ilişki olacak.
+
+[Dosya: Proje 17.txt]
+
+[11:00] Semih: Emir, otel rezervasyon sistemi için Müşteri, Oda, Rezervasyon, Ödeme, Otel ve Hizmet sınıfları yeterli olur.
+
+[11:02] Emir: Müşteri sınıfına id, adSoyad, telefon ve eposta alanlarını ekliyorum.
+
+[11:04] Semih: Otel sınıfında otelAdi, adres ve yildizSayisi alanları olsun.
+
+[11:06] Emir: Otel ile Oda arasında 1:N ilişki kuruyorum.
+
+[11:08] Semih: Oda sınıfında odaNo, kapasite, gecelikUcret ve durum alanları yeterli olur.
+
+[11:10] Emir: Rezervasyon sınıfında girisTarihi, cikisTarihi, kisiSayisi ve durum alanlarını tutuyorum.
+
+[11:12] Semih: Müşteri ile Rezervasyon arasında 1:N ilişki olacak.
+
+[11:14] Emir: Oda ile Rezervasyon arasında da 1:N ilişki kuruyorum.
+
+[11:16] Semih: Ödeme sınıfında odemeTutari, odemeTarihi ve odemeTuru alanları olsun.
+
+[11:18] Emir: Rezervasyon ile Ödeme arasında 1:1 ilişki olacak.
+
+[11:20] Semih: Hizmet sınıfında hizmetAdi ve fiyat alanlarını tutalım.
+
+[11:22] Emir: Rezervasyon ile Hizmet arasında N:N ilişki kuralım. Çünkü bir rezervasyonda birden fazla hizmet kullanılabilir.
