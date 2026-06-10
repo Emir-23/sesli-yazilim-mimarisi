@@ -1,0 +1,83 @@
+## Proje: Diş Hekimi Randevu Sistemi
+
+[Mesajlar]
+
+[19:10] Emir: Diş hekimi randevu sistemi için sınıfları sade tutalım. Hasta, DişHekimi, Klinik, Randevu, Tedavi ve Ödeme yeterli olur.
+
+[19:12] Semih: Tamamdır. Hasta sınıfında id, adSoyad, telefon ve tcNo alanları olsun.
+
+[19:14] Emir: DişHekimi sınıfında da adSoyad ve uzmanlikAlani tutalım.
+
+[19:16] Semih: Klinik sınıfını da ekleyelim. klinikAdi ve adres alanları yeterli.
+
+[19:18] Emir: Klinik ile DişHekimi arasında 1:N ilişki olsun. Bir klinikte birden fazla diş hekimi çalışabilir.
+
+[19:20] Semih: Randevu sınıfında randevuTarihi, saat ve durum alanları olsun.
+
+[19:22] Emir: Hasta ile Randevu arasında 1:N ilişki kuruyoruz. Bir hasta birden fazla randevu alabilir.
+
+[19:24] Semih: DişHekimi ile Randevu arasında da 1:N ilişki olacak. Bir hekimin günlük birçok randevusu olabilir.
+
+[19:26] Emir: Tedavi sınıfını da ekleyelim. tedaviAdi, aciklama ve ucret alanları olsun.
+
+[19:28] Semih: Randevu ile Tedavi arasında 1:1 ilişki kuralım. Her randevuda en fazla bir ana tedavi kaydı olsun.
+
+[19:30] Emir: Ödeme sınıfı da gerekli. odemeTutari, odemeTarihi ve odemeTuru alanlarını tutalım.
+
+[19:32] Semih: Randevu ile Ödeme arasında 1:1 ilişki olacak.
+
+[19:34] Emir: Bu arada 8 GB VRAM normal yazılım geliştirme için yeterli ama dental görüntü analizi gibi AI işlerinde zorlanır.
+
+[19:35] Semih: Aynen, röntgen analizi gibi şeylerde daha güçlü GPU gerekebilir.
+
+[19:37] Emir: Ses geliyor mu Semih, diş hekimi randevu sistemi için hasta sınıfını oluşturuyoruz. Hasta içinde ad soyad, telefon ve TC numarası olacak.
+
+[19:38] Semih: Geliyor. Diş hekimi sınıfında doktor adı soyadı ve uzmanlık alanı tutulacak.
+
+[19:39] Emir: Klinik sınıfı klinik adı ve adres bilgisini temsil edecek.
+
+[19:40] Semih: Klinik ile diş hekimi arasında bire çok ilişki olacak. Bir klinikte birden fazla hekim çalışabilir.
+
+[19:41] Emir: Randevu sınıfında tarih, saat ve durum olacak.
+
+[19:42] Semih: Hasta ile randevu bire çok. Bir hasta birden fazla randevu alabilir.
+
+[19:43] Emir: STT bazen diş hekimini dış hakimi gibi yazabiliyor ama sınıf DişHekimi olacak.
+
+[19:44] Semih: DişHekimi ile Randevu arasında da bire çok ilişki var.
+
+[19:45] Emir: Tedavi sınıfı randevu sonucunda yapılan işlemi temsil edecek. Dolgu, kanal tedavisi gibi.
+
+[19:46] Semih: Randevu ile Tedavi bire bir olsun.
+
+[19:47] Emir: Bu arada Elazığspor’un maç videosunda yine stad atmosferi baya iyiydi.
+
+[19:48] Semih: Sonra bakarız ona. Ödeme sınıfı randevunun ödeme bilgisini temsil edecek.
+
+[19:49] Emir: Randevu ile Ödeme arasında bire bir ilişki kuruyoruz.
+
+[Dosya: Proje 19.txt]
+
+[11:10] Semih: Emir, diş hekimi randevu sistemi için Hasta, DişHekimi, Klinik, Randevu, Tedavi ve Ödeme sınıfları yeterli olur.
+
+[11:12] Emir: Hasta sınıfına id, adSoyad, telefon ve tcNo alanlarını ekliyorum.
+
+[11:14] Semih: DişHekimi sınıfında id, adSoyad ve uzmanlikAlani alanları olsun.
+
+[11:16] Emir: Klinik sınıfında klinikAdi ve adres alanlarını tutalım.
+
+[11:18] Semih: Klinik ile DişHekimi arasında 1:N ilişki olacak. Bir klinikte birden fazla diş hekimi çalışabilir.
+
+[11:20] Emir: Randevu sınıfında randevuTarihi, saat ve durum alanları olsun.
+
+[11:22] Semih: Hasta ile Randevu arasında 1:N ilişki kuruyoruz.
+
+[11:24] Emir: DişHekimi ile Randevu arasında da 1:N ilişki olacak.
+
+[11:26] Semih: Tedavi sınıfında tedaviAdi, aciklama ve ucret alanlarını tutalım.
+
+[11:28] Emir: Randevu ile Tedavi arasında 1:1 ilişki kuralım.
+
+[11:30] Semih: Ödeme sınıfında odemeTutari, odemeTarihi ve odemeTuru alanları yeterli olur.
+
+[11:32] Emir: Randevu ile Ödeme arasında 1:1 ilişki olacak.
