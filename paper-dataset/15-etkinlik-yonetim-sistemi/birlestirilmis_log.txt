@@ -1,0 +1,81 @@
+## Proje: Etkinlik Yönetim Sistemi
+
+[Mesajlar]
+
+[19:10] Emir: Etkinlik yönetim sistemi için temel sınıfları çıkaralım. Kullanıcı, Etkinlik, Mekan, Bilet, Organizator ve Katılım yeterli olur.
+
+[19:12] Semih: Tamamdır. Kullanıcı sınıfında id, adSoyad, eposta ve telefon alanları olsun.
+
+[19:14] Emir: Organizator sınıfını da ekleyelim. organizatorAdi ve iletisimNo alanları yeterli.
+
+[19:16] Semih: Organizator ile Etkinlik arasında 1:N ilişki kuralım. Bir organizatör birden fazla etkinlik düzenleyebilir.
+
+[19:18] Emir: Mekan sınıfı etkinliğin yapılacağı yeri temsil etsin. mekanAdi, adres ve kapasite alanları olsun.
+
+[19:20] Semih: Mekan ile Etkinlik arasında da 1:N ilişki var. Bir mekanda farklı tarihlerde birçok etkinlik yapılabilir.
+
+[19:22] Emir: Etkinlik sınıfında etkinlikAdi, etkinlikTarihi, aciklama ve durum alanları olsun.
+
+[19:24] Semih: Bilet sınıfını da ekleyelim. biletNo, fiyat ve biletTuru alanları yeterli olur.
+
+[19:26] Emir: Etkinlik ile Bilet arasında 1:N ilişki olacak. Bir etkinlik için birden fazla bilet oluşturulabilir.
+
+[19:28] Semih: Katılım sınıfı kullanıcıların etkinliğe kayıt bilgisini tutsun.
+
+[19:30] Emir: Katılım içinde kayitTarihi ve katilimDurumu alanları olsun.
+
+[19:32] Semih: Kullanıcı ile Etkinlik arasındaki ilişkiyi Katılım sınıfı temsil etsin. Çünkü bir kullanıcı birçok etkinliğe katılabilir.
+
+[19:34] Emir: Bu arada 8 GB VRAM normal geliştirme için iyi ama etkinlik görseli üretirken AI tarafında biraz sınırda kalıyor.
+
+[19:35] Semih: Aynen özellikle görsel model açınca hemen doluyor. Son olarak Bilet ile Katılım bire bir olsun.
+
+[19:37] Emir: Ses geliyor mu Semih, etkinlik yönetim sistemi için kullanıcı sınıfını oluşturuyoruz. Kullanıcı içinde ad soyad, e posta ve telefon olacak.
+
+[19:38] Semih: Geliyor. Organizatör sınıfında organizatör adı ve iletişim numarası tutulacak.
+
+[19:39] Emir: Organizator ile etkinlik arasında bire çok ilişki olacak. Bir organizatör birden fazla etkinlik düzenleyebilir.
+
+[19:40] Semih: Mekan sınıfı etkinlik yerini temsil edecek. Mekan adı, adres ve kapasite alanları olacak.
+
+[19:41] Emir: Mekan ile etkinlik arasında bire çok ilişki var.
+
+[19:42] Semih: Etkinlik sınıfında etkinlik adı, etkinlik tarihi, açıklama ve durum olacak.
+
+[19:43] Emir: Bilet sınıfında bilet numarası, fiyat ve bilet türü tutulacak.
+
+[19:44] Semih: STT bazen katılımı katlim diye yazabiliyor ama sınıf Katılım olacak.
+
+[19:45] Emir: Katılım sınıfı kullanıcıların etkinliğe kayıt bilgisini temsil edecek.
+
+[19:46] Semih: Kullanıcı ile etkinlik arasındaki çoktan çoğa ilişki Katılım sınıfıyla gösterilecek.
+
+[19:47] Emir: Bu arada Elazığspor’un maçında yine stad baya doluymuş diyorlar.
+
+[19:48] Semih: Sonra bakarız ona. Bilet ile Katılım arasında bire bir ilişki kuruyoruz.
+
+[Dosya: Proje 15.txt]
+
+[12:20] Semih: Emir, etkinlik yönetim sistemi için Kullanıcı, Etkinlik, Mekan, Bilet, Organizator ve Katılım sınıfları yeterli olur.
+
+[12:22] Emir: Kullanıcı sınıfına id, adSoyAd, eposta ve telefon alanlarını ekliyorum.
+
+[12:24] Semih: Organizator sınıfında organizatorAdi ve iletisimNo alanları olsun.
+
+[12:26] Emir: Organizator ile Etkinlik arasında 1:N ilişki kuruyorum.
+
+[12:28] Semih: Mekan sınıfı için mekanAdi, adres ve kapasite alanları yeterli olur.
+
+[12:30] Emir: Mekan ile Etkinlik arasında 1:N ilişki olacak.
+
+[12:32] Semih: Etkinlik sınıfında etkinlikAdi, etkinlikTarihi, aciklama ve durum alanlarını tutalım.
+
+[12:34] Emir: Bilet sınıfında biletNo, fiyat ve biletTuru alanları olsun.
+
+[12:36] Semih: Etkinlik ile Bilet arasında 1:N ilişki olacak. Bir etkinliğin birden fazla bileti olabilir.
+
+[12:38] Emir: Katılım sınıfında kayitTarihi ve katilimDurumu alanlarını ekliyorum.
+
+[12:40] Semih: Kullanıcı ile Etkinlik arasındaki ilişki Katılım sınıfı ile temsil edilsin.
+
+[12:42] Emir: Bilet ile Katılım arasında 1:1 ilişki kuralım.
