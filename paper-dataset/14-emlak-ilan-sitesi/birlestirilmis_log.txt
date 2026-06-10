@@ -1,0 +1,85 @@
+## Proje: Emlak İlan Sitesi
+
+[Mesajlar]
+
+[20:10] Emir: Emlak ilan sitesi için sınıfları çok artırmayalım. Kullanıcı, İlan, Emlak, Kategori, Fotoğraf ve Randevu yeterli olur.
+
+[20:12] Semih: Tamamdır. Kullanıcı sınıfında id, adSoyad, telefon ve eposta alanları olsun.
+
+[20:14] Emir: Kategori sınıfı satılık daire, kiralık daire, arsa gibi ilan türlerini temsil etsin.
+
+[20:16] Semih: Kategori ile İlan arasında 1:N ilişki kuralım. Bir kategori altında birden fazla ilan olabilir.
+
+[20:18] Emir: Emlak sınıfında baslik, adres, metrekare, odaSayisi ve fiyat alanları olsun.
+
+[20:20] Semih: İlan sınıfı da yayın bilgilerini tutsun. ilanTarihi, durum ve aciklama alanları yeterli.
+
+[20:22] Emir: Kullanıcı ile İlan arasında 1:N ilişki olacak. Bir kullanıcı birden fazla ilan yayınlayabilir.
+
+[20:24] Semih: İlan ile Emlak arasında 1:1 ilişki kuralım. Her ilan tek bir emlak kaydına bağlı olsun.
+
+[20:26] Emir: Fotoğraf sınıfını da ekleyelim. fotoUrl alanı yeterli olur.
+
+[20:28] Semih: İlan ile Fotoğraf arasında 1:N ilişki olsun. Bir ilanda birden fazla fotoğraf bulunabilir.
+
+[20:30] Emir: Randevu sınıfı da gerekli. Kullanıcılar evi görmek için randevu talebi oluşturabilir.
+
+[20:32] Semih: Randevu içinde randevuTarihi, saat ve durum alanları olsun.
+
+[20:34] Emir: Bu arada 8 GB VRAM normal yazılım geliştirme için yeterli ama görsel AI tarafında baya sınırda kalıyor.
+
+[20:35] Semih: Aynen ilan fotoğraflarıyla model çalıştırırsan hemen fark ediliyor.
+
+[20:37] Emir: İlan ile Randevu arasında 1:N ilişki kuralım. Kullanıcı ile Randevu da 1:N olacak.
+
+[20:39] Emir: Ses geliyor mu Semih, emlak ilan sistemi için kullanıcı sınıfını oluşturuyoruz. Kullanıcı içinde ad soyad, telefon ve e posta olacak.
+
+[20:40] Semih: Geliyor. Kategori sınıfı satılık, kiralık, arsa gibi ilan türlerini temsil edecek.
+
+[20:41] Emir: Kategori ile ilan arasında bire çok ilişki olacak. Bir kategoride birden fazla ilan olabilir.
+
+[20:42] Semih: Emlak sınıfında başlık, adres, metrekare, oda sayısı ve fiyat alanları olacak.
+
+[20:43] Emir: İlan sınıfında ilan tarihi, durum ve açıklama tutulacak.
+
+[20:44] Semih: Kullanıcı birden fazla ilan oluşturabilir. O yüzden kullanıcı ile ilan bire çok.
+
+[20:45] Emir: İlan ile emlak bire bir olsun. Her ilan tek taşınmaz bilgisini temsil etsin.
+
+[20:46] Semih: STT bazen emlak kelimesini emlakkk ya da imlak diye yazıyor olabilir ama sınıf Emlak.
+
+[20:47] Emir: Fotoğraf sınıfı ilan görsellerini tutacak. Bir ilana birden fazla fotoğraf eklenebilir.
+
+[20:48] Semih: Bu arada Elazığspor maçında stad yine doluymuş, videoları gördün mü?
+
+[20:49] Emir: Sonra bakarız ona. Randevu sınıfı ev görme taleplerini temsil edecek.
+
+[20:50] Semih: İlan ile Randevu bire çok, Kullanıcı ile Randevu da bire çok olacak.
+
+[Dosya: Proje 14.txt]
+
+[13:10] Semih: Emir, emlak ilan sitesi için Kullanıcı, İlan, Emlak, Kategori, Fotoğraf ve Randevu sınıfları yeterli olur.
+
+[13:12] Emir: Kullanıcı sınıfına id, adSoyad, telefon ve eposta alanlarını ekliyorum.
+
+[13:14] Semih: Kategori sınıfında id ve kategoriAdi alanları olsun.
+
+[13:16] Emir: Kategori ile İlan arasında 1:N ilişki kuruyorum.
+
+[13:18] Semih: Emlak sınıfında baslik, adres, metrekare, odaSayisi ve fiyat alanları bulunmalı.
+
+[13:20] Emir: İlan sınıfı için ilanTarihi, durum ve aciklama alanlarını ekliyorum.
+
+[13:22] Semih: Kullanıcı ile İlan arasında 1:N ilişki olacak.
+
+[13:24] Emir: İlan ile Emlak arasında 1:1 ilişki kuruyorum. Her ilan tek bir emlak kaydına bağlı olacak.
+
+[13:26] Semih: Fotoğraf sınıfında fotoUrl alanı yeterli olur.
+
+[13:28] Emir: İlan ile Fotoğraf arasında 1:N ilişki olacak. Bir ilanda birden fazla fotoğraf bulunabilir.
+
+[13:30] Semih: Randevu sınıfında randevuTarihi, saat ve durum alanlarını tutalım.
+
+[13:32] Emir: İlan ile Randevu arasında 1:N ilişki kuruyorum.
+
+[13:34] Semih: Kullanıcı ile Randevu arasında da 1:N ilişki olsun. Bir kullanıcı birden fazla randevu talebi oluşturabilir.
