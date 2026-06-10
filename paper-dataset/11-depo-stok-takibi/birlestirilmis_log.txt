@@ -1,0 +1,85 @@
+## Proje: Depo Stok Takibi
+
+[Mesajlar]
+
+[18:05] Emir: Depo stok takibi için temel sınıfları belirleyelim. Ürün, Kategori, Depo, Tedarikçi, StokHareketi ve Personel yeterli olur.
+
+[18:07] Semih: Tamamdır. Ürün sınıfında id, urunAdi, barkodNo, birim ve stokMiktari alanları olsun.
+
+[18:09] Emir: Kategori sınıfında kategoriAdi alanı yeterli. Kategori ile Ürün arasında 1:N ilişki kurarız.
+
+[18:11] Semih: Evet, bir kategori altında birden fazla ürün olabilir. Mesela temizlik ürünleri, elektronik ürünler gibi.
+
+[18:13] Emir: Depo sınıfını da ekleyelim. depoAdi ve konum alanları olsun.
+
+[18:15] Semih: Depo ile Ürün arasında N:N ilişki olsun. Çünkü bir ürün birden fazla depoda bulunabilir.
+
+[18:17] Emir: Tedarikçi sınıfı da lazım. firmaAdi ve telefon alanlarını tutalım.
+
+[18:19] Semih: Tedarikçi ile Ürün arasında 1:N ilişki kuralım. Bir tedarikçi birden fazla ürün sağlayabilir.
+
+[18:21] Emir: Personel sınıfında adSoyad ve gorev alanları olsun. Stok giriş çıkışlarını personel yapacak.
+
+[18:23] Semih: StokHareketi sınıfı ana işlem sınıfı olur. hareketTuru, miktar ve hareketTarihi alanları yeterli.
+
+[18:25] Emir: Ürün ile StokHareketi arasında 1:N ilişki olacak. Bir ürünün birçok giriş çıkış kaydı olabilir.
+
+[18:27] Semih: Personel ile StokHareketi de 1:N olsun. Bir personel birçok stok hareketi oluşturabilir.
+
+[18:29] Emir: Depo ile StokHareketi arasında da 1:N ilişki kuralım. Her hareket hangi depoda yapıldı belli olsun.
+
+[18:31] Semih: Bu arada 8 GB VRAM günlük geliştirme için hâlâ yeterli ama AI tarafında büyük modellerde hemen sınır oluyor.
+
+[18:32] Emir: Aynen özellikle veri işleme ve görsel model tarafında daha fazla VRAM gerekiyor.
+
+[18:34] Emir: Ses geliyor mu Semih, depo stok sistemi için ürün sınıfını ekliyoruz. Ürün içinde ürün adı, barkod numarası, birim ve stok miktarı olacak.
+
+[18:35] Semih: Geliyor. Kategori sınıfı ürün gruplarını temsil edecek. Kategori ile ürün arasında bire çok ilişki var.
+
+[18:36] Emir: Depo sınıfında depo adı ve konum tutulacak. Bir depoda birden fazla ürün bulunabilir.
+
+[18:37] Semih: Depo ile ürün çoktan çoğa olacak. Aynı ürün farklı depolarda da tutulabilir.
+
+[18:38] Emir: Tedarikçi sınıfı ürün sağlayan firmayı temsil edecek. STT bazen tedarikçiyi tedarikci diye yazabilir ama sınıf Tedarikçi.
+
+[18:39] Semih: Tedarikçi ile ürün arasında bire çok ilişki olacak. Bir firma birden fazla ürün sağlayabilir.
+
+[18:40] Emir: Personel sınıfı stok işlemlerini yapan çalışanlar için olacak.
+
+[18:41] Semih: Stok hareketi sınıfında hareket türü, miktar ve hareket tarihi tutulacak.
+
+[18:42] Emir: Ürün ile stok hareketi bire çok. Çünkü bir ürün için birçok giriş çıkış kaydı oluşabilir.
+
+[18:43] Semih: Personel ile stok hareketi de bire çok olacak.
+
+[18:44] Emir: Bu arada Elazığspor’un maçında yine stad atmosferi iyiydi diyorlar, videoları gördün mü?
+
+[18:45] Semih: Gördüm ama sonra konuşuruz. Depo ile stok hareketi arasında da bire çok ilişki kuralım.
+
+[Dosya: Proje 11.txt]
+
+[09:30] Semih: Emir, depo stok takip sistemi için Ürün, Kategori, Depo, Tedarikçi, StokHareketi ve Personel sınıfları yeterli olur.
+
+[09:32] Emir: Ürün sınıfına id, urunAdi, barkodNo, birim ve stokMiktari alanlarını ekliyorum.
+
+[09:34] Semih: Kategori sınıfında id ve kategoriAdi alanları olsun.
+
+[09:36] Emir: Kategori ile Ürün arasında 1:N ilişki kuruyorum. Bir kategoriye birden fazla ürün bağlı olabilir.
+
+[09:38] Semih: Depo sınıfında id, depoAdi ve konum alanları yeterli olur.
+
+[09:40] Emir: Depo ile Ürün arasında N:N ilişki olacak. Çünkü aynı ürün birden fazla depoda bulunabilir.
+
+[09:42] Semih: Tedarikçi sınıfında firmaAdi ve telefon alanlarını tutalım.
+
+[09:44] Emir: Tedarikçi ile Ürün arasında 1:N ilişki kuruyorum.
+
+[09:46] Semih: Personel sınıfında adSoyad ve gorev alanları olsun.
+
+[09:48] Emir: StokHareketi sınıfı için hareketTuru, miktar ve hareketTarihi alanlarını ekliyorum.
+
+[09:50] Semih: Ürün ile StokHareketi arasında 1:N ilişki olacak.
+
+[09:52] Emir: Personel ile StokHareketi arasında da 1:N ilişki var.
+
+[09:54] Semih: Depo ile StokHareketi arasında 1:N ilişki kuralım. Böylece hareketin hangi depoda yapıldığı anlaşılır.
