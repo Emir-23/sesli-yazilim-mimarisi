@@ -1,0 +1,79 @@
+## Proje: Araç Kiralama Sistemi
+
+[Mesajlar]
+
+[21:10] Emir: Araç kiralama sistemi için temel sınıfları belirleyelim. Müşteri, Araç, Kategori, Kiralama, Ödeme ve Şube yeterli olur.
+
+[21:12] Semih: Tamamdır. Müşteri sınıfında id, adSoyad, telefon ve ehliyetNo alanları olsun.
+
+[21:14] Emir: Araç sınıfında plaka, marka, model, gunlukUcret ve durum alanlarını tutalım.
+
+[21:16] Semih: Kategori sınıfı araç türlerini temsil etsin. Mesela ekonomik, SUV, lüks gibi.
+
+[21:18] Emir: Kategori ile Araç arasında 1:N ilişki kuralım. Bir kategoriye birden fazla araç bağlı olabilir.
+
+[21:20] Semih: Şube sınıfı da olsun. subeAdi ve adres alanları yeterli olur.
+
+[21:22] Emir: Şube ile Araç arasında 1:N ilişki olacak. Bir şubede birden fazla araç bulunabilir.
+
+[21:24] Semih: Kiralama sınıfı ana işlem sınıfı olur. baslangicTarihi, bitisTarihi, toplamUcret ve durum alanları olsun.
+
+[21:26] Emir: Müşteri ile Kiralama arasında 1:N ilişki kuruyoruz. Bir müşteri birden fazla araç kiralayabilir.
+
+[21:28] Semih: Araç ile Kiralama arasında da 1:N ilişki olmalı. Çünkü aynı araç farklı tarihlerde tekrar kiralanabilir.
+
+[21:30] Emir: Ödeme sınıfını da ekleyelim. odemeTarihi, odemeTutari ve odemeTuru alanları yeterli.
+
+[21:32] Semih: Kiralama ile Ödeme arasında 1:1 ilişki olsun. Her kiralamanın tek ödeme kaydı olacak.
+
+[21:34] Emir: Bu arada 8 GB VRAM normal yazılım geliştirme için hâlâ yeterli ama AI tabanlı görüntü işlerinde biraz sınırda kalıyor.
+
+[21:35] Semih: Aynen özellikle araç fotoğraflarıyla model çalıştırınca fark edilir.
+
+[21:37] Emir: Ses geliyor mu Semih, araç kiralama sistemi için müşteri sınıfını oluşturuyoruz. Müşteri içinde ad soyad, telefon ve ehliyet numarası olacak.
+
+[21:38] Semih: Geliyor. Araç sınıfında plaka, marka, model, günlük ücret ve durum tutulacak.
+
+[21:39] Emir: Kategori sınıfı araç tiplerini temsil edecek. Kategori ile araç arasında bire çok ilişki var.
+
+[21:40] Semih: Şube sınıfında şube adı ve adres olacak. Bir şubede birden fazla araç bulunabilir.
+
+[21:41] Emir: STT bazen kiralamayı kiralamaa ya da kırılama gibi yazabiliyor ama sınıf Kiralama olacak.
+
+[21:42] Semih: Kiralama sınıfında başlangıç tarihi, bitiş tarihi, toplam ücret ve durum alanları olacak.
+
+[21:43] Emir: Müşteri ile kiralama arasında bire çok ilişki var. Bir müşteri birçok kiralama yapabilir.
+
+[21:44] Semih: Araç ile kiralama da bire çok olacak. Aynı araç farklı zamanlarda kiralanabilir.
+
+[21:45] Emir: Bu arada Elazığspor’un maç videosunda stad baya kalabalık görünüyordu.
+
+[21:46] Semih: Sonra bakarız ona. Ödeme sınıfı kiralama ödeme bilgisini temsil edecek.
+
+[21:47] Emir: Kiralama ile ödeme bire bir ilişki olacak.
+
+[Dosya: Proje 16.txt]
+
+[10:15] Semih: Emir, araç kiralama sistemi için Müşteri, Araç, Kategori, Kiralama, Ödeme ve Şube sınıfları yeterli olur.
+
+[10:17] Emir: Müşteri sınıfına id, adSoyad, telefon ve ehliyetNo alanlarını ekliyorum.
+
+[10:19] Semih: Araç sınıfında plaka, marka, model, gunlukUcret ve durum alanları olsun.
+
+[10:21] Emir: Kategori sınıfında kategoriAdi alanı yeterli olur.
+
+[10:23] Semih: Kategori ile Araç arasında 1:N ilişki kuruyoruz. Bir kategoride birden fazla araç olabilir.
+
+[10:25] Emir: Şube sınıfında subeAdi ve adres alanlarını tutalım.
+
+[10:27] Semih: Şube ile Araç arasında 1:N ilişki olsun.
+
+[10:29] Emir: Kiralama sınıfında baslangicTarihi, bitisTarihi, toplamUcret ve durum alanları olacak.
+
+[10:31] Semih: Müşteri ile Kiralama arasında 1:N ilişki kuralım.
+
+[10:33] Emir: Araç ile Kiralama arasında da 1:N ilişki olacak.
+
+[10:35] Semih: Ödeme sınıfında odemeTarihi, odemeTutari ve odemeTuru alanları yeterli.
+
+[10:37] Emir: Kiralama ile Ödeme arasında 1:1 ilişki kuruyorum.
